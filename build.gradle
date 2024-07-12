@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.145'
+    id 'net.neoforged.gradle.userdev' version '7.0.154'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -15,6 +15,8 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
+    maven { url 'https://maven.neoforged.net/releases' }
+    mavenCentral()
 }
 
 base {
@@ -66,6 +68,7 @@ configurations {
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
+    //implementation fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")
 
 }
 
