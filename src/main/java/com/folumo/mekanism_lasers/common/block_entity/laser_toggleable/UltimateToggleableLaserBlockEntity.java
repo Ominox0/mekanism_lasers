@@ -24,7 +24,7 @@ public class UltimateToggleableLaserBlockEntity extends TileEntityBasicLaser imp
 
 
     public UltimateToggleableLaserBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockRegistry.BASIC_TOGGLEABLE_LASER, pos, state);
+        super(BlockRegistry.ULTIMATE_TOGGLEABLE_LASER, pos, state);
 
     }
 

@@ -24,7 +24,7 @@ public class EliteToggleableLaserBlockEntity extends TileEntityBasicLaser implem
 
 
     public EliteToggleableLaserBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockRegistry.BASIC_TOGGLEABLE_LASER, pos, state);
+        super(BlockRegistry.ELITE_TOGGLEABLE_LASER, pos, state);
 
     }
 
