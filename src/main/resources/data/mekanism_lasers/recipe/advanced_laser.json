@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "I#I",
+    "RCR"
+  ],
+  "key": {
+    "#": {
+      "item": "mekanism_lasers:basic_laser"
+    },
+    "R": {
+      "item": "mekanism:alloy_infused"
+    },
+    "I": {
+      "item": "mekanism:ingot_osmium"
+    },
+    "C": {
+      "item": "mekanism:advanced_control_circuit"
+    }
+  },
+  "result": {
+    "item": "mekanism_lasers:advanced_laser",
+    "count": 1
+  }
+}

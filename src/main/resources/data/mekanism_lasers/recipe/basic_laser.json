@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "I#I",
+    "RCR"
+  ],
+  "key": {
+    "#": {
+      "item": "mekanism:laser"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "mekanism:basic_control_circuit"
+    }
+  },
+  "result": {
+    "item": "mekanism_lasers:basic_laser",
+    "count": 1
+  }
+}

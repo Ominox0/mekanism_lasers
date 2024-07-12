@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "I#I",
+    "HHH"
+  ],
+  "key": {
+    "#": {
+      "item": "mekanism:digital_miner"
+    },
+    "S": {
+      "tag": "forge:ingots/steel"
+    },
+    "I": {
+      "item": "mekanism_lasers:basic_laser"
+    },
+    "H": {
+      "item": "mekanism:hdpe_sheet"
+    }
+  },
+  "result": {
+    "item": "mekanism_lasers:ore_generator",
+    "count": 1
+  }
+}

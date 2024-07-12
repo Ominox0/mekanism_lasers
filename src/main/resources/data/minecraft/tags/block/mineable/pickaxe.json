@@ -1,0 +1,12 @@
+{
+  "values":[
+    "mekanism_lasers:laser_stopper",
+
+    "mekanism_lasers:basic_laser",
+    "mekanism_lasers:advanced_laser",
+    "mekanism_lasers:elite_laser",
+    "mekanism_lasers:ultimate_laser",
+
+    "mekanism_lasers:ore_generator"
+  ]
+}
