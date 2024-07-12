@@ -10,6 +10,7 @@ public enum MekanismLasersLang implements ILangEntry {
 
     DESCRIPTION_LASER_STOPPER("description", "laser_stopper"),
     DESCRIPTION_LASER("description", "laser"),
+    DESCRIPTION_LASER_TOGGLEABLE("description", "laser_toggleable"),
     DESCRIPTION_ORE_GENERATOR("description", "ore_generator")
     ;
 
