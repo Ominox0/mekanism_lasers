@@ -31,8 +31,8 @@ public class Mekanism_lasers {
 
 /* TODO:
  *  new features/modification in next update:
- *  1. New laser type (Toggleable Laser) -> in progress
- *  2. Remote Control to turn on/off Toggleable Lasers -> queened
+ *  1. New laser type (Toggleable Laser) -> Done
+ *  2. Remote Control to turn on/off Toggleable Lasers -> in progress
  *  3. Remote Interface (you have to put Remove Control in it to work) -> queened
  *      -Takes redstone signal and based on signal it will turn on/off Toggleable Lasers
  *  4. Make Ore Generator be able to rotate -> Done
