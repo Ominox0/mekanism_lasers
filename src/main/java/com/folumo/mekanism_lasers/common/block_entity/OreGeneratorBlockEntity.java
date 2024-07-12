@@ -6,32 +6,29 @@ import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.inventory.IInventorySlot;
 import mekanism.api.math.FloatingLong;
-import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
 import mekanism.common.capabilities.energy.LaserEnergyContainer;
 import mekanism.common.capabilities.holder.energy.EnergyContainerHelper;
 import mekanism.common.capabilities.holder.slot.IInventorySlotHolder;
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper;
-import mekanism.common.capabilities.resolver.BasicCapabilityResolver;
 import mekanism.common.inventory.container.slot.ContainerSlotType;
 import mekanism.common.inventory.slot.OutputInventorySlot;
 import mekanism.common.tile.laser.TileEntityLaserReceptor;
 import mekanism.common.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.tags.ITag;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Random;
 
 public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
     private int coolDown = 0;
@@ -56,7 +53,6 @@ public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
 
     public OreGeneratorBlockEntity(BlockPos pos, BlockState state) {
         super(BlockRegistry.ORE_GENERATOR, pos, state);
-        addCapabilityResolver(BasicCapabilityResolver.constant(Capabilities.LASER_RECEPTOR, this));
 
     }
 
@@ -90,7 +86,7 @@ public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
     }
 
     @Override
-    protected void onUpdateServer() {
+    protected boolean onUpdateServer() {
         if(coolDown == 0) {
             coolDown = 20 * 5;
             if(energyContainer.getEnergy().greaterOrEqual(getUsage())) {
@@ -99,6 +95,7 @@ public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
         } else {
             coolDown--;
         }
+        return false;
     }
 
     private void generateOre() {
@@ -110,11 +107,17 @@ public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
     }
 
     private static ItemStack getRandomDrop() {
-        TagKey<Block> blockTag = BlockTags.create(new ResourceLocation("forge", "ores"));
-        ITag<Block> oreTag = Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(blockTag);
+        TagKey<Block> blockTag = BlockTags.create(ResourceLocation.fromNamespaceAndPath("forge", "ore"));
+        List<HolderSet.Named<Block>> blocksInTag = BuiltInRegistries.BLOCK.getTag(blockTag).stream().toList();
 
-        RandomSource randomSource = RandomSource.create();
+        Random rand = new Random();
 
-        return new ItemStack(oreTag.getRandomElement(randomSource).get().asItem());
+        // Get a random index
+        int randomIndex = rand.nextInt(blocksInTag.size());
+
+
+        HolderSet.Named<Block> block = blocksInTag.get(randomIndex);
+
+        return new ItemStack(block.get(0).value().asItem());
     }
 }

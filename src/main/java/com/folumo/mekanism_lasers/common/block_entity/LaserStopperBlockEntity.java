@@ -23,7 +23,6 @@ public class LaserStopperBlockEntity extends TileEntityMekanism implements ILase
 
     public LaserStopperBlockEntity(BlockPos pos, BlockState state) {
         super(BlockRegistry.LASER_STOPPER, pos, state);
-        addCapabilityResolver(BasicCapabilityResolver.constant(Capabilities.LASER_RECEPTOR, this));
 
     }
 

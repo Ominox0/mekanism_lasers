@@ -1,10 +1,14 @@
 package com.folumo.mekanism_lasers.common.item;
 
-import com.folumo.mekanism_lasers.common.block.OreGenerator;
-import mekanism.common.item.block.machine.ItemBlockMachine;
+import com.folumo.mekanism_lasers.common.block_entity.OreGeneratorBlockEntity;
+import mekanism.common.block.prefab.BlockTile;
+import mekanism.common.content.blocktype.BlockTypeTile;
+import mekanism.common.item.block.ItemBlockTooltip;
 
-public class OreGeneratorBlockItem extends ItemBlockMachine {
-    public OreGeneratorBlockItem(OreGenerator block) {
-        super(block);
+
+public class OreGeneratorBlockItem extends ItemBlockTooltip<BlockTile.BlockTileModel<OreGeneratorBlockEntity, BlockTypeTile<OreGeneratorBlockEntity>>> {
+
+    public OreGeneratorBlockItem(BlockTile.BlockTileModel<OreGeneratorBlockEntity, BlockTypeTile<OreGeneratorBlockEntity>> block, Properties properties) {
+        super(block, properties);
     }
 }

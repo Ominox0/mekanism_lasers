@@ -1,5 +1,6 @@
 package com.folumo.mekanism_lasers;
 
+import com.folumo.mekanism_lasers.client.ClientSetup;
 import com.folumo.mekanism_lasers.common.registry.*;
 import com.mojang.logging.LogUtils;
 import net.neoforged.fml.common.Mod;
@@ -21,7 +22,6 @@ public class Mekanism_lasers {
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockEntityTypeRegistry.BLOCK_ENTITY_TYPES.register(modEventBus);
         ContainerTypeRegistry.CONTAINER_TYPES.register(modEventBus);
-        EntityRegistry.ENTITY_TYPES.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
         ItemRegistry.ModItemTab.CREATIVE_MODE_TABS.register(modEventBus);
 

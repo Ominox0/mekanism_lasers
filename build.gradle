@@ -15,6 +15,7 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
+    maven { url 'https://modmaven.dev/' }
     maven { url 'https://maven.neoforged.net/releases' }
     mavenCentral()
 }
@@ -68,7 +69,7 @@ configurations {
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
-    //implementation fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")
+    implementation "mekanism:Mekanism:${minecraft_version}-${mekanism_version}"
 
 }
 

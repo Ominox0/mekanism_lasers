@@ -24,7 +24,6 @@ public class BasicLaserBlockEntity extends TileEntityBasicLaser implements ILase
 
     public BasicLaserBlockEntity(BlockPos pos, BlockState state) {
         super(BlockRegistry.BASIC_LASER, pos, state);
-        addCapabilityResolver(BasicCapabilityResolver.constant(Capabilities.LASER_RECEPTOR, this));
 
     }
 

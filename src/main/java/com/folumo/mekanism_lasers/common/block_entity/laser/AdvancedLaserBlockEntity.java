@@ -24,7 +24,6 @@ public class AdvancedLaserBlockEntity extends TileEntityBasicLaser implements IL
 
     public AdvancedLaserBlockEntity(BlockPos pos, BlockState state) {
         super(BlockRegistry.ADVANCED_LASER, pos, state);
-        addCapabilityResolver(BasicCapabilityResolver.constant(Capabilities.LASER_RECEPTOR, this));
 
     }
 

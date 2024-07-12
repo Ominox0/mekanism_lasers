@@ -13,6 +13,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 public class LaserStopperRenderer implements BlockEntityRenderer<LaserStopperBlockEntity> {
     public LaserStopperRenderer(BlockEntityRendererProvider.Context context) {
@@ -56,17 +58,5 @@ public class LaserStopperRenderer implements BlockEntityRenderer<LaserStopperBlo
                 {1.0f, 1.0f},
                 {0.0f, 1.0f}
         };
-
-        for (int i = 0; i < vertices.length; i++) {
-            Vec3 vertex = vertices[i];
-            float[] uv = uvs[i];
-            vertexConsumer.vertex(matrixStack.last().pose(), (float) vertex.x, (float) vertex.y, (float) vertex.z)
-                    .color(255, 255, 255, 255)
-                    .uv(uv[0], uv[1])
-                    .overlayCoords(combinedOverlay)
-                    .uv2(combinedLight)
-                    .normal(matrixStack.last().normal(), 0, 1, 0)
-                    .endVertex();
-        }
     }
 }

@@ -7,25 +7,23 @@ import com.folumo.mekanism_lasers.client.renderer.LaserStopperRenderer;
 import com.folumo.mekanism_lasers.common.registry.BlockEntityTypeRegistry;
 import com.folumo.mekanism_lasers.common.registry.ContainerTypeRegistry;
 import mekanism.client.ClientRegistrationUtil;
-import net.minecraft.core.registries.Registries;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegisterEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = Mekanism_lasers.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+
+@EventBusSubscriber(modid = Mekanism_lasers.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class ClientSetup {
 
     @SubscribeEvent
-    public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(BlockEntityTypeRegistry.LASER_STOPPER.get(), LaserStopperRenderer::new);
     }
 
     @SubscribeEvent
-    public static void registerContainers(RegisterEvent event) {
-        event.register(Registries.MENU, helper -> {
-            ClientRegistrationUtil.registerScreen(ContainerTypeRegistry.ORE_GENERATOR, OreGeneratorScreen::new);
-        });
+    public static void registerContainers(RegisterMenuScreensEvent event) {
+        ClientRegistrationUtil.registerScreen(event, ContainerTypeRegistry.ORE_GENERATOR, OreGeneratorScreen::new);
     }
 }

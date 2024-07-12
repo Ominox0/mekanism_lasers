@@ -7,7 +7,7 @@ import mekanism.common.item.block.ItemBlockTooltip;
 
 public class LaserStopperBlockItem extends ItemBlockTooltip<BlockTile.BlockTileModel<LaserStopperBlockEntity, BlockTypeTile<LaserStopperBlockEntity>>>{
 
-    public LaserStopperBlockItem(BlockTile.BlockTileModel<LaserStopperBlockEntity, BlockTypeTile<LaserStopperBlockEntity>> block) {
-        super(block);
+    public LaserStopperBlockItem(BlockTile.BlockTileModel<LaserStopperBlockEntity, BlockTypeTile<LaserStopperBlockEntity>> block, Properties properties) {
+        super(block, properties);
     }
 }
