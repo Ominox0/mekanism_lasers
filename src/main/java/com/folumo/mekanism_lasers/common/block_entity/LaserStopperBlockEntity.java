@@ -4,8 +4,6 @@ import com.folumo.mekanism_lasers.common.registry.BlockRegistry;
 import mekanism.api.IConfigurable;
 import mekanism.api.lasers.ILaserReceptor;
 import mekanism.api.math.FloatingLong;
-import mekanism.common.capabilities.Capabilities;
-import mekanism.common.capabilities.resolver.BasicCapabilityResolver;
 import mekanism.common.tile.base.TileEntityMekanism;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
