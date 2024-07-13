@@ -2,7 +2,6 @@ package com.folumo.mekanism_lasers.common.registry;
 
 import com.folumo.mekanism_lasers.Mekanism_lasers;
 import com.folumo.mekanism_lasers.common.item.RemoteControlItem;
-import mekanism.common.Mekanism;
 import mekanism.common.block.BlockBounding;
 import mekanism.common.registration.impl.ItemDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;

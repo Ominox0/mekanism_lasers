@@ -25,7 +25,7 @@ public class UltimateLaserBlockEntity extends TileEntityBasicLaser implements IL
     }
 
     protected void addInitialEnergyContainers(EnergyContainerHelper builder, IContentsListener listener) {
-        builder.addContainer(this.energyContainer = LaserEnergyContainer.create(BasicEnergyContainer.notExternal, BasicEnergyContainer.alwaysTrue, this, listener), new RelativeSide[]{RelativeSide.BACK});
+        builder.addContainer(this.energyContainer = LaserEnergyContainer.create(BasicEnergyContainer.notExternal, BasicEnergyContainer.alwaysTrue, this, listener), RelativeSide.BACK);
     }
 
     @Override
