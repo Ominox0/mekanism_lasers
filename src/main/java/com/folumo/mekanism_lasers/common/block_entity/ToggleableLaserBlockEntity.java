@@ -1,10 +1,12 @@
-package com.folumo.mekanism_lasers.common.block_entity.laser_toggleable;
+package com.folumo.mekanism_lasers.common.block_entity;
 
-import com.folumo.mekanism_lasers.common.registry.BlockRegistry;
+import com.folumo.mekanism_lasers.common.tier.ToggleableLaserTier;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
 import mekanism.api.lasers.ILaserReceptor;
 import mekanism.api.math.FloatingLong;
+import mekanism.api.providers.IBlockProvider;
+import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
 import mekanism.common.capabilities.energy.LaserEnergyContainer;
 import mekanism.common.capabilities.holder.energy.EnergyContainerHelper;
@@ -14,18 +16,23 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-
-public class BasicToggleableLaserBlockEntity extends TileEntityBasicLaser implements ILaserReceptor {
-
-    public static FloatingLong energyCap = FloatingLong.createConst(4000000L);
-    public static FloatingLong usage = FloatingLong.createConst(15000L);
-
+public class ToggleableLaserBlockEntity extends TileEntityBasicLaser implements ILaserReceptor {
     private static boolean active = true;
+    private final ToggleableLaserTier tier;
 
+    public ToggleableLaserBlockEntity(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+        super(blockProvider, pos, state);
+        tier = Attribute.getTier(blockProvider, ToggleableLaserTier.class);
+    }
 
-    public BasicToggleableLaserBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockRegistry.BASIC_TOGGLEABLE_LASER, pos, state);
+    @Override
+    public void receiveLaserEnergy(@NotNull FloatingLong floatingLong) {
 
+    }
+
+    @Override
+    public boolean canLasersDig() {
+        return false;
     }
 
     protected void addInitialEnergyContainers(EnergyContainerHelper builder, IContentsListener listener) {
@@ -41,31 +48,12 @@ public class BasicToggleableLaserBlockEntity extends TileEntityBasicLaser implem
         if (!active){
             return FloatingLong.ZERO;
         }else {
-            return usage;
+            return tier.getEnergyUsage();
 
         }
     }
-
     @Override
     public @NotNull Component getName() {
         return Component.literal("Basic Toggleable Laser");
-    }
-
-    public static FloatingLong getUsage() {
-        return usage;
-    }
-
-    public static FloatingLong getEnergyCap() {
-        return energyCap;
-    }
-
-    @Override
-    public void receiveLaserEnergy(@NotNull FloatingLong floatingLong) {
-
-    }
-
-    @Override
-    public boolean canLasersDig() {
-        return false;
     }
 }

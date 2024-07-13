@@ -18,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 public class EliteLaserBlockEntity extends TileEntityBasicLaser implements ILaserReceptor {
     public static FloatingLong energyCap = FloatingLong.createConst(16000000L);
     public static FloatingLong usage = FloatingLong.createConst(25000L);
-
     public EliteLaserBlockEntity(BlockPos pos, BlockState state) {
         super(BlockRegistry.ELITE_LASER, pos, state);
 

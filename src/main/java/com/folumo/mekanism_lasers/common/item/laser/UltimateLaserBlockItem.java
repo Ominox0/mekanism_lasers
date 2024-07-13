@@ -5,12 +5,11 @@ import com.folumo.mekanism_lasers.common.block_entity.laser.UltimateLaserBlockEn
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.item.block.ItemBlockTooltip;
+import net.minecraft.world.item.Rarity;
 
 
 public class UltimateLaserBlockItem extends ItemBlockTooltip<BlockTile.BlockTileModel<UltimateLaserBlockEntity, BlockTypeTile<UltimateLaserBlockEntity>>> {
-
-
     public UltimateLaserBlockItem(BlockTile.BlockTileModel<UltimateLaserBlockEntity, BlockTypeTile<UltimateLaserBlockEntity>> block, Properties properties) {
-        super(block, properties);
+        super(block, properties.rarity(Rarity.EPIC));
     }
 }

@@ -5,10 +5,11 @@ import com.folumo.mekanism_lasers.common.block_entity.laser.EliteLaserBlockEntit
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.item.block.ItemBlockTooltip;
+import net.minecraft.world.item.Rarity;
 
 public class EliteLaserBlockItem extends ItemBlockTooltip<BlockTile.BlockTileModel<EliteLaserBlockEntity, BlockTypeTile<EliteLaserBlockEntity>>> {
 
     public EliteLaserBlockItem(BlockTile.BlockTileModel<EliteLaserBlockEntity, BlockTypeTile<EliteLaserBlockEntity>> block, Properties properties) {
-        super(block, properties);
+        super(block, properties.rarity(Rarity.RARE));
     }
 }

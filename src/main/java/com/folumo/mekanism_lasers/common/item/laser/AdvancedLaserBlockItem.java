@@ -4,10 +4,11 @@ import com.folumo.mekanism_lasers.common.block_entity.laser.AdvancedLaserBlockEn
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.item.block.ItemBlockTooltip;
+import net.minecraft.world.item.Rarity;
 
 public class AdvancedLaserBlockItem extends ItemBlockTooltip<BlockTile.BlockTileModel<AdvancedLaserBlockEntity, BlockTypeTile<AdvancedLaserBlockEntity>>> {
 
     public AdvancedLaserBlockItem(BlockTile.BlockTileModel<AdvancedLaserBlockEntity, BlockTypeTile<AdvancedLaserBlockEntity>> block, Properties properties) {
-        super(block, properties);
+        super(block, properties.rarity(Rarity.UNCOMMON));
     }
 }
