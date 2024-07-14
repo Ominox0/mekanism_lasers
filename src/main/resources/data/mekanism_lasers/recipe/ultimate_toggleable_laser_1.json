@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "R#R",
+    " R "
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "#": {
+      "item": "mekanism_lasers:ultimate_laser"
+    }
+  },
+  "result": {
+    "id": "mekanism_lasers:ultimate_toggleable_laser",
+    "count": 1
+  }
+}

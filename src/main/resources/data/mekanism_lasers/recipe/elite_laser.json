@@ -10,17 +10,17 @@
       "item": "mekanism_lasers:advanced_laser"
     },
     "R": {
-      "item": "mekanism:alloy_reinforced"
+      "tag": "mekanism:alloys/reinforced"
     },
     "I": {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
     },
     "C": {
-      "item": "mekanism:elite_control_circuit"
+      "tag": "c:circuits/elite"
     }
   },
   "result": {
-    "item": "mekanism_lasers:elite_laser",
+    "id": "mekanism_lasers:elite_laser",
     "count": 1
   }
 }

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "I#I",
+    "RCR"
+  ],
+  "key": {
+    "#": {
+      "item": "mekanism_lasers:advanced_toggleable_laser"
+    },
+    "R": {
+      "item": "mekanism:alloy_reinforced"
+    },
+    "I": {
+      "item": "minecraft:gold_ingot"
+    },
+    "C": {
+      "item": "mekanism:elite_control_circuit"
+    }
+  },
+  "result": {
+    "id": "mekanism_lasers:elite_toggleable_laser",
+    "count": 1
+  }
+}

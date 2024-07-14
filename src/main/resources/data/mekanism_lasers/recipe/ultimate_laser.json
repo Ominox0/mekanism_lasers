@@ -10,17 +10,17 @@
       "item": "mekanism_lasers:elite_laser"
     },
     "R": {
-      "item": "mekanism:alloy_atomic"
+      "tag": "mekanism:alloys/atomic"
     },
     "I": {
-      "item": "minecraft:diamond"
+      "tag": "c:gems/diamond"
     },
     "C": {
-      "item": "mekanism:ultimate_control_circuit"
+      "tag": "c:circuits/ultimate"
     }
   },
   "result": {
-    "item": "mekanism_lasers:ultimate_laser",
+    "id": "mekanism_lasers:ultimate_laser",
     "count": 1
   }
 }

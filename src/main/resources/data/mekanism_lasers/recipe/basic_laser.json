@@ -10,17 +10,17 @@
       "item": "mekanism:laser"
     },
     "R": {
-      "item": "minecraft:redstone"
+      "tag": "c:dusts/redstone"
     },
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     "C": {
-      "item": "mekanism:basic_control_circuit"
+      "tag": "c:circuits/basic"
     }
   },
   "result": {
-    "item": "mekanism_lasers:basic_laser",
+    "id": "mekanism_lasers:basic_laser",
     "count": 1
   }
 }

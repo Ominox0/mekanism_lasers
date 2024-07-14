@@ -10,17 +10,17 @@
       "item": "mekanism_lasers:basic_laser"
     },
     "R": {
-      "item": "mekanism:alloy_infused"
+      "tag": "mekanism:alloys/infused"
     },
     "I": {
-      "item": "mekanism:ingot_osmium"
+      "tag": "c:ingots/osmium"
     },
     "C": {
-      "item": "mekanism:advanced_control_circuit"
+      "tag": "c:circuits/advanced"
     }
   },
   "result": {
-    "item": "mekanism_lasers:advanced_laser",
+    "id": "mekanism_lasers:advanced_laser",
     "count": 1
   }
 }

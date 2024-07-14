@@ -1,27 +1,21 @@
 package com.folumo.mekanism_lasers.common.block_entity;
 
 import com.folumo.mekanism_lasers.common.registry.BlockRegistry;
-import mekanism.api.IConfigurable;
 import mekanism.api.lasers.ILaserReceptor;
 import mekanism.api.math.FloatingLong;
 import mekanism.common.tile.base.TileEntityMekanism;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 
-public class LaserStopperBlockEntity extends TileEntityMekanism implements ILaserReceptor, IConfigurable {
-    private Item currentItem = Items.AIR;
+public class LaserStopperBlockEntity extends TileEntityMekanism implements ILaserReceptor {
+    private BlockState currentBlockState;
 
     public LaserStopperBlockEntity(BlockPos pos, BlockState state) {
         super(BlockRegistry.LASER_STOPPER, pos, state);
-
+        currentBlockState = state;
     }
 
     @Override
@@ -38,34 +32,17 @@ public class LaserStopperBlockEntity extends TileEntityMekanism implements ILase
         return false;
     }
 
-    @Override
-    public InteractionResult onSneakRightClick(Player player) {
-        return InteractionResult.PASS;
-    }
 
-    @Override
-    public InteractionResult onRightClick(Player player) {
-        ItemStack mainHandItem = player.getMainHandItem();
-        ItemStack offHandItem = player.getOffhandItem();
-
-        if (!mainHandItem.isEmpty()) {
-            changeTexture(mainHandItem.getItem());
-        } else if (!offHandItem.isEmpty()) {
-            changeTexture(offHandItem.getItem());
+    public void changeTexture(BlockState state) {
+        this.currentBlockState = state;
+        if (this.level != null) {
+            //this.level.setBlock(this.worldPosition, state, 3); // Update the block in the world
+            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3); // Notify the level of the change
         }
-
-        return InteractionResult.PASS;
     }
 
-    private void changeTexture(Item item) {
-        this.currentItem = item;
-        // Update the block state to notify the renderer
-        assert this.level != null;
-        this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
-    }
-
-    public Item getCurrentItem() {
-        return currentItem;
+    public BlockState getCurrentBlockState() {
+        return currentBlockState;
     }
 
 
