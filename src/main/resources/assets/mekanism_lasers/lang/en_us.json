@@ -13,7 +13,12 @@
   "block.mekanism_lasers.ultimate_laser": "Ultimate Laser",
   "block.mekanism_lasers.ultimate_toggleable_laser": "Ultimate Toggleable Laser",
 
+  "block.mekanism_lasers.creative_laser": "Creative Laser",
+  "block.mekanism_lasers.creative_toggleable_laser": "Creative Toggleable Laser",
+
   "block.mekanism_lasers.ore_generator": "Ore Generator",
+
+  "item.mekanism_lasers.remote_control": "Remote Control",
 
   "container.mekanism_lasers.ore_generator": "Ore Generator",
 

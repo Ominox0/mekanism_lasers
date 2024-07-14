@@ -1,24 +1,20 @@
 package com.folumo.mekanism_lasers.common.registry;
 
 import com.folumo.mekanism_lasers.Mekanism_lasers;
+import com.folumo.mekanism_lasers.common.block.Laser;
 import com.folumo.mekanism_lasers.common.block.LaserStopper;
 import com.folumo.mekanism_lasers.common.block.OreGenerator;
 import com.folumo.mekanism_lasers.common.block.ToggleableLaser;
-import com.folumo.mekanism_lasers.common.block.laser.AdvancedLaser;
-import com.folumo.mekanism_lasers.common.block.laser.BasicLaser;
-import com.folumo.mekanism_lasers.common.block.laser.EliteLaser;
-import com.folumo.mekanism_lasers.common.block.laser.UltimateLaser;
 
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
+
+import com.folumo.mekanism_lasers.common.block_entity.LaserBlockEntity;
 import com.folumo.mekanism_lasers.common.block_entity.ToggleableLaserBlockEntity;
+import com.folumo.mekanism_lasers.common.item.LaserBlockItem;
 import com.folumo.mekanism_lasers.common.item.LaserStopperBlockItem;
 import com.folumo.mekanism_lasers.common.item.OreGeneratorBlockItem;
 import com.folumo.mekanism_lasers.common.item.ToggleableLaserBlockItem;
-import com.folumo.mekanism_lasers.common.item.laser.AdvancedLaserBlockItem;
-import com.folumo.mekanism_lasers.common.item.laser.BasicLaserBlockItem;
-import com.folumo.mekanism_lasers.common.item.laser.EliteLaserBlockItem;
-import com.folumo.mekanism_lasers.common.item.laser.UltimateLaserBlockItem;
 import mekanism.api.tier.ITier;
 import mekanism.common.block.attribute.AttributeTier;
 import mekanism.common.content.blocktype.BlockType;
@@ -37,27 +33,24 @@ public class BlockRegistry {
     public static final BlockRegistryObject<LaserStopper, LaserStopperBlockItem> LASER_STOPPER = BLOCKS.register("laser_stopper",
             () -> new LaserStopper(BlockTypeRegistry.LASER_STOPPER), LaserStopperBlockItem::new);
 
-
-    public static final BlockRegistryObject<BasicLaser, BasicLaserBlockItem> BASIC_LASER = BLOCKS.register("basic_laser",
-            () -> new BasicLaser(BlockTypeRegistry.BASIC_LASER), BasicLaserBlockItem::new);
+    public static final BlockRegistryObject<Laser, LaserBlockItem> BASIC_LASER = registerLaser(BlockTypeRegistry.BASIC_LASER);
+    public static final BlockRegistryObject<Laser, LaserBlockItem> ADVANCED_LASER = registerLaser(BlockTypeRegistry.ADVANCED_LASER);
+    public static final BlockRegistryObject<Laser, LaserBlockItem> ELITE_LASER = registerLaser(BlockTypeRegistry.ELITE_LASER);
+    public static final BlockRegistryObject<Laser, LaserBlockItem> ULTIMATE_LASER = registerLaser(BlockTypeRegistry.ULTIMATE_LASER);
+    public static final BlockRegistryObject<Laser, LaserBlockItem> CREATIVE_LASER = registerLaser(BlockTypeRegistry.CREATIVE_LASER);
+    private static BlockRegistryObject<Laser, LaserBlockItem> registerLaser(BlockTypeTile<LaserBlockEntity> type) {
+        return registerTieredBlock(type, "_laser", () -> new Laser(type), LaserBlockItem::new);
+    }
 
     public static final BlockRegistryObject<ToggleableLaser, ToggleableLaserBlockItem> BASIC_TOGGLEABLE_LASER = registerToggleableLaser(BlockTypeRegistry.BASIC_TOGGLEABLE_LASER);
     public static final BlockRegistryObject<ToggleableLaser, ToggleableLaserBlockItem> ADVANCED_TOGGLEABLE_LASER = registerToggleableLaser(BlockTypeRegistry.ADVANCED_TOGGLEABLE_LASER);
     public static final BlockRegistryObject<ToggleableLaser, ToggleableLaserBlockItem> ELITE_TOGGLEABLE_LASER = registerToggleableLaser(BlockTypeRegistry.ELITE_TOGGLEABLE_LASER);
     public static final BlockRegistryObject<ToggleableLaser, ToggleableLaserBlockItem> ULTIMATE_TOGGLEABLE_LASER = registerToggleableLaser(BlockTypeRegistry.ULTIMATE_TOGGLEABLE_LASER);
+    public static final BlockRegistryObject<ToggleableLaser, ToggleableLaserBlockItem> CREATIVE_TOGGLEABLE_LASER = registerToggleableLaser(BlockTypeRegistry.CREATIVE_TOGGLEABLE_LASER);
 
     private static BlockRegistryObject<ToggleableLaser, ToggleableLaserBlockItem> registerToggleableLaser(BlockTypeTile<ToggleableLaserBlockEntity> type) {
         return registerTieredBlock(type, "_toggleable_laser", () -> new ToggleableLaser(type), ToggleableLaserBlockItem::new);
     }
-
-    public static final BlockRegistryObject<AdvancedLaser, AdvancedLaserBlockItem> ADVANCED_LASER = BLOCKS.register("advanced_laser",
-            () -> new AdvancedLaser(BlockTypeRegistry.ADVANCED_LASER), AdvancedLaserBlockItem::new);
-
-    public static final BlockRegistryObject<EliteLaser, EliteLaserBlockItem> ELITE_LASER = BLOCKS.register("elite_laser",
-            () -> new EliteLaser(BlockTypeRegistry.ELITE_LASER), EliteLaserBlockItem::new);
-
-    public static final BlockRegistryObject<UltimateLaser, UltimateLaserBlockItem> ULTIMATE_LASER = BLOCKS.register("ultimate_laser",
-            () -> new UltimateLaser(BlockTypeRegistry.ULTIMATE_LASER), UltimateLaserBlockItem::new);
 
     public static final BlockRegistryObject<OreGenerator, OreGeneratorBlockItem> ORE_GENERATOR = BLOCKS.register("ore_generator",
             () -> new OreGenerator(BlockTypeRegistry.ORE_GENERATOR), OreGeneratorBlockItem::new);

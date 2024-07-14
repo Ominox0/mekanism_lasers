@@ -1,6 +1,6 @@
 package com.folumo.mekanism_lasers.common.item;
 
-import com.folumo.mekanism_lasers.common.block_entity.ToggleableLaserBlockEntity;
+import com.folumo.mekanism_lasers.common.block_entity.LaserBlockEntity;
 import com.folumo.mekanism_lasers.common.tier.LaserTier;
 import mekanism.api.text.TextComponentUtil;
 import mekanism.common.block.attribute.Attribute;
@@ -12,10 +12,9 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 
-public class ToggleableLaserBlockItem extends ItemBlockTooltip<BlockTile.BlockTileModel<ToggleableLaserBlockEntity, BlockTypeTile<ToggleableLaserBlockEntity>>> {
+public class LaserBlockItem extends ItemBlockTooltip<BlockTile.BlockTileModel<LaserBlockEntity, BlockTypeTile<LaserBlockEntity>>> {
     LaserTier tier;
-
-    public ToggleableLaserBlockItem(BlockTile.BlockTileModel<ToggleableLaserBlockEntity, BlockTypeTile<ToggleableLaserBlockEntity>> block, Properties properties) {
+    public LaserBlockItem(BlockTile.BlockTileModel<LaserBlockEntity, BlockTypeTile<LaserBlockEntity>> block, Properties properties) {
         super(block, properties);
         tier = Attribute.getTier(block, LaserTier.class);
     }

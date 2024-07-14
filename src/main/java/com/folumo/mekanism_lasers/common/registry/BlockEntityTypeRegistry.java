@@ -1,14 +1,13 @@
 package com.folumo.mekanism_lasers.common.registry;
 
 import com.folumo.mekanism_lasers.Mekanism_lasers;
+import com.folumo.mekanism_lasers.common.block.Laser;
 import com.folumo.mekanism_lasers.common.block.ToggleableLaser;
+import com.folumo.mekanism_lasers.common.block_entity.LaserBlockEntity;
 import com.folumo.mekanism_lasers.common.block_entity.LaserStopperBlockEntity;
 import com.folumo.mekanism_lasers.common.block_entity.OreGeneratorBlockEntity;
 import com.folumo.mekanism_lasers.common.block_entity.ToggleableLaserBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.laser.AdvancedLaserBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.laser.BasicLaserBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.laser.EliteLaserBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.laser.UltimateLaserBlockEntity;
+import com.folumo.mekanism_lasers.common.item.LaserBlockItem;
 import com.folumo.mekanism_lasers.common.item.ToggleableLaserBlockItem;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.registration.impl.BlockRegistryObject;
@@ -27,43 +26,31 @@ public class BlockEntityTypeRegistry {
                     .withSimple(Capabilities.CONFIGURABLE)
                     .build();
 
+    public static final TileEntityTypeRegistryObject<LaserBlockEntity> BASIC_LASER = createLaser(BlockRegistry.BASIC_LASER);
+    public static final TileEntityTypeRegistryObject<LaserBlockEntity> ADVANCED_LASER = createLaser(BlockRegistry.ADVANCED_LASER);
+    public static final TileEntityTypeRegistryObject<LaserBlockEntity> ELITE_LASER = createLaser(BlockRegistry.ELITE_LASER);
+    public static final TileEntityTypeRegistryObject<LaserBlockEntity> ULTIMATE_LASER = createLaser(BlockRegistry.ULTIMATE_LASER);
+    public static final TileEntityTypeRegistryObject<LaserBlockEntity> CREATIVE_LASER = createLaser(BlockRegistry.CREATIVE_LASER);
 
-    public static final TileEntityTypeRegistryObject<BasicLaserBlockEntity> BASIC_LASER =
-            BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.BASIC_LASER, BasicLaserBlockEntity::new)
-                    .serverTicker(TileEntityMekanism::tickServer)
-                    .withSimple(Capabilities.LASER_RECEPTOR)
-                    .build();
+    private static TileEntityTypeRegistryObject<LaserBlockEntity> createLaser(BlockRegistryObject<Laser, LaserBlockItem> block) {
+        return BLOCK_ENTITY_TYPES.mekBuilder(block, (pos, state) -> new LaserBlockEntity(block, pos, state))
+                .serverTicker(TileEntityMekanism::tickServer)
+                .withSimple(Capabilities.LASER_RECEPTOR)
+                .build();
+    }
+
     public static final TileEntityTypeRegistryObject<ToggleableLaserBlockEntity> BASIC_TOGGLEABLE_LASER = createToggleableLaser(BlockRegistry.BASIC_TOGGLEABLE_LASER);
     public static final TileEntityTypeRegistryObject<ToggleableLaserBlockEntity> ADVANCED_TOGGLEABLE_LASER = createToggleableLaser(BlockRegistry.ADVANCED_TOGGLEABLE_LASER);
     public static final TileEntityTypeRegistryObject<ToggleableLaserBlockEntity> ELITE_TOGGLEABLE_LASER = createToggleableLaser(BlockRegistry.ELITE_TOGGLEABLE_LASER);
     public static final TileEntityTypeRegistryObject<ToggleableLaserBlockEntity> ULTIMATE_TOGGLEABLE_LASER = createToggleableLaser(BlockRegistry.ULTIMATE_TOGGLEABLE_LASER);
+    public static final TileEntityTypeRegistryObject<ToggleableLaserBlockEntity> CREATIVE_TOGGLEABLE_LASER = createToggleableLaser(BlockRegistry.CREATIVE_TOGGLEABLE_LASER);
 
     private static TileEntityTypeRegistryObject<ToggleableLaserBlockEntity> createToggleableLaser(BlockRegistryObject<ToggleableLaser, ToggleableLaserBlockItem> block) {
         return BLOCK_ENTITY_TYPES.mekBuilder(block, (pos, state) -> new ToggleableLaserBlockEntity(block, pos, state))
                 .serverTicker(TileEntityMekanism::tickServer)
-                .withSimple(Capabilities.CONFIGURABLE)
+                .withSimple(Capabilities.LASER_RECEPTOR)
                 .build();
     }
-
-
-    public static final TileEntityTypeRegistryObject<AdvancedLaserBlockEntity> ADVANCED_LASER =
-            BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.ADVANCED_LASER, AdvancedLaserBlockEntity::new)
-                    .serverTicker(TileEntityMekanism::tickServer)
-                    .withSimple(Capabilities.LASER_RECEPTOR)
-                    .build();
-
-    public static final TileEntityTypeRegistryObject<EliteLaserBlockEntity> ELITE_LASER =
-            BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.ELITE_LASER, EliteLaserBlockEntity::new)
-                    .serverTicker(TileEntityMekanism::tickServer)
-                    .withSimple(Capabilities.LASER_RECEPTOR)
-                    .build();
-
-
-    public static final TileEntityTypeRegistryObject<UltimateLaserBlockEntity> ULTIMATE_LASER =
-            BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.ULTIMATE_LASER, UltimateLaserBlockEntity::new)
-                    .serverTicker(TileEntityMekanism::tickServer)
-                    .withSimple(Capabilities.LASER_RECEPTOR)
-                    .build();
 
     public static final TileEntityTypeRegistryObject<OreGeneratorBlockEntity> ORE_GENERATOR =
             BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.ORE_GENERATOR, OreGeneratorBlockEntity::new)
