@@ -8,7 +8,7 @@ import com.folumo.mekanism_lasers.common.block_entity.laser.BasicLaserBlockEntit
 import com.folumo.mekanism_lasers.common.block_entity.laser.EliteLaserBlockEntity;
 import com.folumo.mekanism_lasers.common.block_entity.laser.UltimateLaserBlockEntity;
 import com.folumo.mekanism_lasers.common.lang.MekanismLasersLang;
-import com.folumo.mekanism_lasers.common.tier.ToggleableLaserTier;
+import com.folumo.mekanism_lasers.common.tier.LaserTier;
 import mekanism.common.block.attribute.*;
 import mekanism.common.content.blocktype.BlockShapes;
 import mekanism.common.content.blocktype.BlockTypeTile;
@@ -28,12 +28,27 @@ public class BlockTypeRegistry {
             .without(AttributeParticleFX.class, AttributeStateFacing.class, Attributes.AttributeRedstone.class)
             .build();
 
-    public static final BlockTypeTile<ToggleableLaserBlockEntity> BASIC_TOGGLEABLE_LASER = createLaserTurret(ToggleableLaserTier.BASIC, () -> BlockEntityTypeRegistry.BASIC_TOGGLEABLE_LASER);
-    public static final BlockTypeTile<ToggleableLaserBlockEntity> ADVANCED_TOGGLEABLE_LASER = createLaserTurret(ToggleableLaserTier.ADVANCED, () -> BlockEntityTypeRegistry.ADVANCED_TOGGLEABLE_LASER);
-    public static final BlockTypeTile<ToggleableLaserBlockEntity> ELITE_TOGGLEABLE_LASER = createLaserTurret(ToggleableLaserTier.ELITE, () -> BlockEntityTypeRegistry.ELITE_TOGGLEABLE_LASER);
-    public static final BlockTypeTile<ToggleableLaserBlockEntity> ULTIMATE_TOGGLEABLE_LASER = createLaserTurret(ToggleableLaserTier.ULTIMATE, () -> BlockEntityTypeRegistry.ULTIMATE_TOGGLEABLE_LASER);
+    public static final BlockTypeTile<ToggleableLaserBlockEntity> BASIC_LASER = createToggleableLaser(LaserTier.BASIC, () -> BlockEntityTypeRegistry.BASIC_TOGGLEABLE_LASER);
+    public static final BlockTypeTile<ToggleableLaserBlockEntity> ADVANCED_LASER = createToggleableLaser(LaserTier.ADVANCED, () -> BlockEntityTypeRegistry.ADVANCED_TOGGLEABLE_LASER);
+    public static final BlockTypeTile<ToggleableLaserBlockEntity> ELITE_LASER = createToggleableLaser(LaserTier.ELITE, () -> BlockEntityTypeRegistry.ELITE_TOGGLEABLE_LASER);
+    public static final BlockTypeTile<ToggleableLaserBlockEntity> ULTIMATE_LASER = createToggleableLaser(LaserTier.ULTIMATE, () -> BlockEntityTypeRegistry.ULTIMATE_TOGGLEABLE_LASER);
 
-    private static <TILE extends ToggleableLaserBlockEntity> BlockTypeTile<TILE> createLaserTurret(ToggleableLaserTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile) {
+    private static <TILE extends ToggleableLaserBlockEntity> BlockTypeTile<TILE> createToggleableLaser(LaserTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile) {
+        return BlockTypeTile.BlockTileBuilder
+                .createBlock(tile, MekanismLasersLang.DESCRIPTION_LASER_TOGGLEABLE)
+                .with(new AttributeTier<>(tier), new AttributeStateFacing(BlockStateProperties.FACING, AttributeStateFacing.FacePlacementType.SELECTED_FACE), Attributes.SECURITY)
+                .withEnergyConfig(tier::getEnergyUsage, tier::getEnergyCap)
+                .withCustomShape(BlockShapes.LASER)
+                .withSound(MekanismSounds.LASER)
+                .build();
+    }
+
+    public static final BlockTypeTile<ToggleableLaserBlockEntity> BASIC_TOGGLEABLE_LASER = createLaserTurret(LaserTier.BASIC, () -> BlockEntityTypeRegistry.BASIC_TOGGLEABLE_LASER);
+    public static final BlockTypeTile<ToggleableLaserBlockEntity> ADVANCED_TOGGLEABLE_LASER = createLaserTurret(LaserTier.ADVANCED, () -> BlockEntityTypeRegistry.ADVANCED_TOGGLEABLE_LASER);
+    public static final BlockTypeTile<ToggleableLaserBlockEntity> ELITE_TOGGLEABLE_LASER = createLaserTurret(LaserTier.ELITE, () -> BlockEntityTypeRegistry.ELITE_TOGGLEABLE_LASER);
+    public static final BlockTypeTile<ToggleableLaserBlockEntity> ULTIMATE_TOGGLEABLE_LASER = createLaserTurret(LaserTier.ULTIMATE, () -> BlockEntityTypeRegistry.ULTIMATE_TOGGLEABLE_LASER);
+
+    private static <TILE extends ToggleableLaserBlockEntity> BlockTypeTile<TILE> createLaserTurret(LaserTier tier, Supplier<TileEntityTypeRegistryObject<TILE>> tile) {
         return BlockTypeTile.BlockTileBuilder
                 .createBlock(tile, MekanismLasersLang.DESCRIPTION_LASER_TOGGLEABLE)
                 .with(new AttributeTier<>(tier), new AttributeStateFacing(BlockStateProperties.FACING, AttributeStateFacing.FacePlacementType.SELECTED_FACE), Attributes.SECURITY)
