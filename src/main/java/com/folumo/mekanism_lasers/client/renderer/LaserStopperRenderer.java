@@ -1,46 +1,57 @@
 package com.folumo.mekanism_lasers.client.renderer;
 
 import com.folumo.mekanism_lasers.common.block_entity.LaserStopperBlockEntity;
+import com.folumo.mekanism_lasers.common.registry.BlockRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.Objects;
 
 public class LaserStopperRenderer implements BlockEntityRenderer<LaserStopperBlockEntity> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LaserStopperRenderer.class);
     public LaserStopperRenderer(BlockEntityRendererProvider.Context context) {
+    }
+
+    protected void renderDefault(boolean hasTexture, LaserStopperBlockEntity blockEntity, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, int combinedOverlay) {
+        poseStack.pushPose();
+        BlockRenderDispatcher blockRenderer = Minecraft.getInstance().getBlockRenderer();
+        BlockState state = BlockRegistry.LASER_STOPPER.defaultState();
+        //poseStack.translate(0.5, 0, 0.5);
+        //poseStack.mulPose(Axis.YP.rotation((float) Math.toRadians(180 - getFacing(animatable).toYRot())));
+        //poseStack.translate(-0.5, 0, -0.5);
+        if (hasTexture){
+            blockRenderer.getModelRenderer().tesselateBlock(Objects.requireNonNull(blockEntity.getLevel()), blockRenderer.getBlockModel(state), state, blockEntity.getBlockPos(), poseStack, bufferSource.getBuffer(RenderType.cutoutMipped()), false, RandomSource.create(), state.getSeed(blockEntity.getBlockPos()), combinedOverlay, ModelData.EMPTY, RenderType.SOLID);
+        }
+        poseStack.popPose();
+    }
+
+    protected void renderNew(LaserStopperBlockEntity blockEntity, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, int combinedOverlay){
+        BlockState state = blockEntity.getCurrentBlockState();
+        BlockRenderDispatcher blockRenderer = Minecraft.getInstance().getBlockRenderer();
+        poseStack.pushPose();
+
+        if(!state.isAir()) {
+            blockRenderer.renderSingleBlock(state, poseStack, bufferSource, packedLight, combinedOverlay, ModelData.EMPTY, RenderType.SOLID);
+        }
+        poseStack.popPose();
     }
 
     @Override
     public void render(LaserStopperBlockEntity blockEntity, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, int combinedOverlay) {
-        BlockState state = blockEntity.getCurrentBlockState();
-        LOGGER.info("CHANGING STATE OF BLOCK !!!");
-        BlockRenderDispatcher blockRenderer = Minecraft.getInstance().getBlockRenderer();
-        poseStack.pushPose();
-        //float rot = (float) Math.toRadians(180 - getFacing(animatable).toYRot());
+        boolean hasTexture = blockEntity.getHasTexture();
+        renderDefault(hasTexture, blockEntity, partialTicks, poseStack, bufferSource, packedLight, combinedOverlay);
+        renderNew(blockEntity, partialTicks, poseStack, bufferSource, packedLight, combinedOverlay);
 
-        //poseStack.translate(0.5, 0, 0.5);
-        //poseStack.mulPose(Axis.YP.rotation(45)); // 45 -> rot
-        //poseStack.translate(-0.5, 0, -0.5);
 
-        if(!state.isAir()) {
-            poseStack.pushPose();
-            poseStack.translate(0.1F, 0.1F, 0.1F);
-            blockRenderer.renderSingleBlock(state, poseStack, bufferSource, packedLight, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.SOLID);
-            poseStack.popPose();
-        }
-        poseStack.popPose();
+
     }
 
 }

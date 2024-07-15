@@ -28,15 +28,12 @@ public class LaserStopper extends BlockTile.BlockTileModel<LaserStopperBlockEnti
 
     @Override
     protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-        if (!world.isClientSide()){
-            TileEntityMekanism tile = WorldUtils.getTileEntity(TileEntityMekanism.class, world, pos);
-            if (tile instanceof LaserStopperBlockEntity laserStopperBlockEntity){
-                Item item = stack.getItem();
-                if (item instanceof BlockItem blockItem) {
-                    Block block = blockItem.getBlock();
-                    laserStopperBlockEntity.changeTexture(block.defaultBlockState());
-
-                }
+        TileEntityMekanism tile = WorldUtils.getTileEntity(TileEntityMekanism.class, world, pos);
+        if (tile instanceof LaserStopperBlockEntity laserStopperBlockEntity){
+            Item item = stack.getItem();
+            if (item instanceof BlockItem blockItem) {
+                Block block = blockItem.getBlock();
+                laserStopperBlockEntity.changeTexture(block.defaultBlockState());
             }
         }
 

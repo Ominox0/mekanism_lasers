@@ -19,7 +19,6 @@ import static com.folumo.mekanism_lasers.common.block.BlockShapes.LASER_STOPPER_
 import static com.folumo.mekanism_lasers.common.block.BlockShapes.ORE_GENERATOR_SHAPE;
 
 public class BlockTypeRegistry {
-
     public static final BlockTypeTile<LaserStopperBlockEntity> LASER_STOPPER = BlockTypeTile.BlockTileBuilder.createBlock(() -> BlockEntityTypeRegistry.LASER_STOPPER, MekanismLasersLang.DESCRIPTION_LASER_STOPPER)
             .withCustomShape(LASER_STOPPER_SHAPE)
             .without(AttributeParticleFX.class, AttributeStateFacing.class, Attributes.AttributeRedstone.class)

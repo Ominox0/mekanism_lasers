@@ -34,7 +34,7 @@ public class BlockShapes {
         ), LASER_STOPPER_SHAPE, true, true);
 
         VoxelShapeUtils.setShape(VoxelShapeUtils.combine(
-            box(0, 0, 0, 16, 2, 16),
+                box(0, 0, 0, 16, 2, 16),
                 box(0, 2, 0, 2, 14, 14),
                 box(14, 2, 0, 16, 14, 14),
                 box(2, 2, 0, 14, 16, 2),
@@ -50,7 +50,6 @@ public class BlockShapes {
         ), ORE_GENERATOR_SHAPE, true, true);
     }
 }
-
 
 
 
