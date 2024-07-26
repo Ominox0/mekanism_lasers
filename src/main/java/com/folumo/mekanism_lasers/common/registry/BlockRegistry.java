@@ -9,6 +9,8 @@ import com.folumo.mekanism_lasers.common.block.ToggleableLaser;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
+import com.folumo.mekanism_lasers.common.block_entity.EnergyStorageCellBlockEntity;
+import mekanism.common.block.prefab.BlockTile;
 import com.folumo.mekanism_lasers.common.block_entity.LaserBlockEntity;
 import com.folumo.mekanism_lasers.common.block_entity.ToggleableLaserBlockEntity;
 import com.folumo.mekanism_lasers.common.item.LaserBlockItem;
@@ -24,6 +26,7 @@ import mekanism.common.registration.impl.BlockRegistryObject;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.MapColor;
 
 
 public class BlockRegistry {
@@ -54,6 +57,19 @@ public class BlockRegistry {
 
     public static final BlockRegistryObject<OreGenerator, OreGeneratorBlockItem> ORE_GENERATOR = BLOCKS.register("ore_generator",
             () -> new OreGenerator(BlockTypeRegistry.ORE_GENERATOR), OreGeneratorBlockItem::new);
+
+
+
+
+
+//public static final BlockRegistryObject<OreGenerator, OreGeneratorBlockItem> ENERGY_STORAGE_CASING = BLOCKS.register("energy_storage_casing",
+//            () -> new OreGenerator(BlockTypeRegistry.ENERGY_STORAGE_CASING), OreGeneratorBlockItem::new);
+//public static final BlockRegistryObject<OreGenerator, OreGeneratorBlockItem> ENERGY_STORAGE_PORT = BLOCKS.register("energy_storage_port",
+//            () -> new OreGenerator(BlockTypeRegistry.ENERGY_STORAGE_PORT), OreGeneratorBlockItem::new);
+    public static final BlockRegistryObject<BlockTile<EnergyStorageCellBlockEntity, BlockTypeTile<EnergyStorageCellBlockEntity>>, BlockItem> ENERGY_STORAGE_CELL =
+        BLOCKS.register("energy_storage_cell", () -> new BlockTile<>(BlockTypeRegistry.ENERGY_STORAGE_CELL, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)), BlockItem::new);
+
+
 
 
     private static <BLOCK extends Block, ITEM extends BlockItem> BlockRegistryObject<BLOCK, ITEM> registerTieredBlock(BlockType type, String suffix,

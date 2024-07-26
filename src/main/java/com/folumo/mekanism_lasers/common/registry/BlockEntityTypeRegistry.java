@@ -3,10 +3,7 @@ package com.folumo.mekanism_lasers.common.registry;
 import com.folumo.mekanism_lasers.Mekanism_lasers;
 import com.folumo.mekanism_lasers.common.block.Laser;
 import com.folumo.mekanism_lasers.common.block.ToggleableLaser;
-import com.folumo.mekanism_lasers.common.block_entity.LaserBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.LaserStopperBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.OreGeneratorBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.ToggleableLaserBlockEntity;
+import com.folumo.mekanism_lasers.common.block_entity.*;
 import com.folumo.mekanism_lasers.common.item.LaserBlockItem;
 import com.folumo.mekanism_lasers.common.item.ToggleableLaserBlockItem;
 import mekanism.common.capabilities.Capabilities;
@@ -57,5 +54,6 @@ public class BlockEntityTypeRegistry {
                     .serverTicker(TileEntityMekanism::tickServer)
                     .withSimple(Capabilities.LASER_RECEPTOR)
                     .build();
-
+    public static final TileEntityTypeRegistryObject<EnergyStorageCellBlockEntity> ENERGY_STORAGE_CELL =
+            BLOCK_ENTITY_TYPES.builder(BlockRegistry.ENERGY_STORAGE_CELL, (pos, state) -> new EnergyStorageCellBlockEntity(BlockRegistry.ENERGY_STORAGE_CELL, pos, state)).build();
 }

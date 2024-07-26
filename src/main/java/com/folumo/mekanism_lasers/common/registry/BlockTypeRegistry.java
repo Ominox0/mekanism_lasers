@@ -1,9 +1,6 @@
 package com.folumo.mekanism_lasers.common.registry;
 
-import com.folumo.mekanism_lasers.common.block_entity.LaserBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.LaserStopperBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.OreGeneratorBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.ToggleableLaserBlockEntity;
+import com.folumo.mekanism_lasers.common.block_entity.*;
 import com.folumo.mekanism_lasers.common.lang.MekanismLasersLang;
 import com.folumo.mekanism_lasers.common.tier.LaserTier;
 import mekanism.common.block.attribute.*;
@@ -65,5 +62,10 @@ public class BlockTypeRegistry {
             .withCustomShape(ORE_GENERATOR_SHAPE)
             .build();
 
+    public static final BlockTypeTile<EnergyStorageCellBlockEntity> ENERGY_STORAGE_CELL =
+            BlockTypeTile.BlockTileBuilder.createBlock(() -> BlockEntityTypeRegistry.ENERGY_STORAGE_CELL, MekanismLasersLang.DESCRIPTION_ENERGY_STORAGE_CELL)
+                    .withEnergyConfig(EnergyStorageCellBlockEntity::getMaxEnergy)
+                    .internalMultiblock()
+                    .build();
 
 }

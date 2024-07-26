@@ -1,10 +1,13 @@
 package com.folumo.mekanism_lasers;
 
+import com.folumo.mekanism_lasers.common.multiblock.data.energyStorageMultiblockData;
+import com.folumo.mekanism_lasers.common.multiblock.validator.energyStorageMultiblockValidator;
 import com.folumo.mekanism_lasers.common.registry.*;
 import com.mojang.logging.LogUtils;
+import mekanism.common.lib.multiblock.MultiblockManager;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-
+import mekanism.common.lib.multiblock.MultiblockCache;
 import org.slf4j.Logger;
 
 import net.neoforged.bus.api.IEventBus;
@@ -17,12 +20,15 @@ public class Mekanism_lasers {
     public static final String MOD_ID = "mekanism_lasers";
     private static final Logger LOGGER = LogUtils.getLogger();
 
+    public static final MultiblockManager<energyStorageMultiblockData> energyStorage = new MultiblockManager<>("energyStorage", MultiblockCache::new, energyStorageMultiblockValidator::new);
+
     public Mekanism_lasers(IEventBus modEventBus, ModContainer modContainer){
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockEntityTypeRegistry.BLOCK_ENTITY_TYPES.register(modEventBus);
         ContainerTypeRegistry.CONTAINER_TYPES.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
         ItemRegistry.ModItemTab.CREATIVE_MODE_TABS.register(modEventBus);
+
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
