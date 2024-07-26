@@ -6,6 +6,7 @@ import mekanism.api.text.TextComponentUtil;
 import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;

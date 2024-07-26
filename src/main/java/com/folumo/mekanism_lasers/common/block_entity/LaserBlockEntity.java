@@ -5,7 +5,6 @@ import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.RelativeSide;
-import mekanism.api.math.FloatingLong;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.block.attribute.Attribute;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
@@ -25,7 +24,7 @@ public class LaserBlockEntity extends TileEntityLaserReceptor {
         tier = Attribute.getTier(blockProvider, LaserTier.class);
 
         if (tier == LaserTier.CREATIVE){
-            this.energyContainer.insert(FloatingLong.MAX_VALUE, Action.EXECUTE, AutomationType.INTERNAL);
+            this.energyContainer.insert(Long.MAX_VALUE, Action.EXECUTE, AutomationType.INTERNAL);
         }
     }
 
@@ -34,7 +33,7 @@ public class LaserBlockEntity extends TileEntityLaserReceptor {
     }
 
     @Override
-    protected FloatingLong toFire(){
+    protected long toFire(){
         return tier.getEnergyUsage();
     }
     @Override
@@ -46,7 +45,7 @@ public class LaserBlockEntity extends TileEntityLaserReceptor {
     protected boolean onUpdateServer() {
         boolean ret = super.onUpdateServer();
         if (tier == LaserTier.CREATIVE){
-            this.energyContainer.insert(FloatingLong.MAX_VALUE, Action.EXECUTE, AutomationType.INTERNAL);
+            this.energyContainer.insert(Long.MAX_VALUE, Action.EXECUTE, AutomationType.INTERNAL);
         }
 
         return ret;

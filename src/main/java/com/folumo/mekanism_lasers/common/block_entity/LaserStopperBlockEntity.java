@@ -2,7 +2,6 @@ package com.folumo.mekanism_lasers.common.block_entity;
 
 import com.folumo.mekanism_lasers.common.registry.BlockRegistry;
 import mekanism.api.lasers.ILaserReceptor;
-import mekanism.api.math.FloatingLong;
 import mekanism.common.tile.base.TileEntityMekanism;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -27,8 +26,9 @@ public class LaserStopperBlockEntity extends TileEntityMekanism implements ILase
     }
 
     @Override
-    public void receiveLaserEnergy(@NotNull FloatingLong energy) {
+    public void receiveLaserEnergy(long energy) {
     }
+
 
     @Override
     public boolean canLasersDig() {

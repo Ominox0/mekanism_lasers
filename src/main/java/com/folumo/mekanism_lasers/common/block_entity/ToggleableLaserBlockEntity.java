@@ -1,7 +1,6 @@
 package com.folumo.mekanism_lasers.common.block_entity;
 
 import com.folumo.mekanism_lasers.common.tier.LaserTier;
-import mekanism.api.math.FloatingLong;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.block.attribute.Attribute;
 import net.minecraft.core.BlockPos;
@@ -32,10 +31,10 @@ public class ToggleableLaserBlockEntity extends LaserBlockEntity {
     }
 
     @Override
-    protected FloatingLong toFire(){
+    protected long toFire(){
         if (!this.active){
             this.setActive(false);
-            return FloatingLong.ZERO;
+            return 0L;
         }else {
             return tier.getEnergyUsage();
 

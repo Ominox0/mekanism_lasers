@@ -5,7 +5,6 @@ import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
 import mekanism.api.inventory.IInventorySlot;
-import mekanism.api.math.FloatingLong;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
 import mekanism.common.capabilities.energy.LaserEnergyContainer;
 import mekanism.common.capabilities.holder.energy.EnergyContainerHelper;
@@ -32,8 +31,8 @@ import java.util.List;
 
 public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
     private int coolDown = 0;
-    public static FloatingLong energyCap = FloatingLong.createConst(64_000_000L);
-    public static FloatingLong usage = FloatingLong.createConst(16_000_000L);
+    public static long energyCap = 64_000_000L;
+    public static long usage = 16_000_000L;
     private LaserEnergyContainer energyContainer;
 
 
@@ -58,15 +57,15 @@ public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
     }
 
 
-    public static FloatingLong getUsage() {
+    public static long getUsage() {
         return usage;
     }
-    public static FloatingLong getEnergyCap() {
+    public static long getEnergyCap() {
         return energyCap;
     }
 
     @Override
-    public void receiveLaserEnergy(@NotNull FloatingLong energy) {
+    public void receiveLaserEnergy(long energy) {
         energyContainer.insert(energy, Action.EXECUTE, AutomationType.INTERNAL);
     }
 
@@ -90,7 +89,8 @@ public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
     protected boolean onUpdateServer() {
         if(coolDown == 0) {
             coolDown = 20 * 5;
-            if(energyContainer.getEnergy().greaterOrEqual(getUsage())) {
+
+            if(energyContainer.getEnergy() >= getUsage()) {
                 generateOre();
             }
         } else {

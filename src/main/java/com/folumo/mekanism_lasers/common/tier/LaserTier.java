@@ -1,24 +1,23 @@
 package com.folumo.mekanism_lasers.common.tier;
 
 
-import mekanism.api.math.FloatingLong;
 import mekanism.api.tier.BaseTier;
 import mekanism.api.tier.ITier;
 
 
 public enum LaserTier implements ITier {
-    BASIC(BaseTier.BASIC, FloatingLong.createConst(4000000L), FloatingLong.createConst(15000L)),
-    ADVANCED(BaseTier.ADVANCED, FloatingLong.createConst(8000000L), FloatingLong.createConst(20000L)),
-    ELITE(BaseTier.ELITE, FloatingLong.createConst(16000000L), FloatingLong.createConst(25000L)),
-    ULTIMATE(BaseTier.ULTIMATE, FloatingLong.createConst(32000000L), FloatingLong.createConst(45000L)),
-    CREATIVE(BaseTier.CREATIVE, FloatingLong.MAX_VALUE, FloatingLong.MAX_VALUE)
+    BASIC(BaseTier.BASIC, 4000000L, 15000L),
+    ADVANCED(BaseTier.ADVANCED, 8000000L, 20000L),
+    ELITE(BaseTier.ELITE, 16000000L, 25000L),
+    ULTIMATE(BaseTier.ULTIMATE, 32000000L, 45000L),
+    CREATIVE(BaseTier.CREATIVE, Long.MAX_VALUE, Long.MAX_VALUE)
     ;
 
     private final BaseTier baseTier;
-    private final FloatingLong energyCap;
-    private final FloatingLong energyUsage;
+    private final Long energyCap;
+    private final Long energyUsage;
 
-    LaserTier(BaseTier baseTier, FloatingLong energyCap, FloatingLong energyUsage) {
+    LaserTier(BaseTier baseTier, Long energyCap, Long energyUsage) {
         this.baseTier = baseTier;
         this.energyCap = energyCap;
         this.energyUsage = energyUsage;
@@ -29,11 +28,11 @@ public enum LaserTier implements ITier {
         return baseTier;
     }
 
-    public FloatingLong getEnergyCap(){
+    public Long getEnergyCap(){
         return energyCap;
     }
 
-    public FloatingLong getEnergyUsage(){
+    public Long getEnergyUsage(){
         return energyUsage;
     }
 
