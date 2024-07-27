@@ -1,14 +1,12 @@
 package com.folumo.mekanism_lasers.common.registry;
 
 import com.folumo.mekanism_lasers.Mekanism_lasers;
-import com.folumo.mekanism_lasers.common.block.Laser;
-import com.folumo.mekanism_lasers.common.block.LaserStopper;
-import com.folumo.mekanism_lasers.common.block.OreGenerator;
-import com.folumo.mekanism_lasers.common.block.ToggleableLaser;
+import com.folumo.mekanism_lasers.common.block.*;
 
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
+import com.folumo.mekanism_lasers.common.block_entity.EnergyStorageCasingBlockEntity;
 import com.folumo.mekanism_lasers.common.block_entity.EnergyStorageCellBlockEntity;
 import mekanism.common.block.prefab.BlockTile;
 import com.folumo.mekanism_lasers.common.block_entity.LaserBlockEntity;
@@ -62,8 +60,9 @@ public class BlockRegistry {
 
 
 
-//public static final BlockRegistryObject<OreGenerator, OreGeneratorBlockItem> ENERGY_STORAGE_CASING = BLOCKS.register("energy_storage_casing",
-//            () -> new OreGenerator(BlockTypeRegistry.ENERGY_STORAGE_CASING), OreGeneratorBlockItem::new);
+    public static final BlockRegistryObject<BlockTile<EnergyStorageCasingBlockEntity, BlockTypeTile<EnergyStorageCasingBlockEntity>>, BlockItem> ENERGY_STORAGE_CASING =
+            BLOCKS.register("energy_storage_casing", () -> new BlockTile<>(BlockTypeRegistry.ENERGY_STORAGE_CASING, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)), BlockItem::new);
+
 //public static final BlockRegistryObject<OreGenerator, OreGeneratorBlockItem> ENERGY_STORAGE_PORT = BLOCKS.register("energy_storage_port",
 //            () -> new OreGenerator(BlockTypeRegistry.ENERGY_STORAGE_PORT), OreGeneratorBlockItem::new);
     public static final BlockRegistryObject<BlockTile<EnergyStorageCellBlockEntity, BlockTypeTile<EnergyStorageCellBlockEntity>>, BlockItem> ENERGY_STORAGE_CELL =

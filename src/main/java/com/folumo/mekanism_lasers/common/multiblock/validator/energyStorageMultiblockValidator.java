@@ -28,14 +28,9 @@ public class energyStorageMultiblockValidator extends CuboidStructureValidator<e
     @Override
     protected FormationProtocol.CasingType getCasingType(BlockState state) {
         Block block = state.getBlock();
-        //if (BlockType.is(block, BlockTypeRegistry.ENERGY_STORAGE_CASING)) {
-        //    return FormationProtocol.CasingType.FRAME;
-        //} else if (BlockType.is(block, BlockTypeRegistry.ENERGY_STORAGE_PORT)) {
-        //    return FormationProtocol.CasingType.VALVE;
-        //}
-        if (BlockType.is(block, BlockTypeRegistry.ENERGY_STORAGE_CELL)) {
+        if (BlockType.is(block, BlockTypeRegistry.ENERGY_STORAGE_CASING)) {
             return FormationProtocol.CasingType.FRAME;
-        } else if (BlockType.is(block, BlockTypeRegistry.ENERGY_STORAGE_CELL)) {
+        } else if (BlockType.is(block, BlockTypeRegistry.ENERGY_STORAGE_CASING)) { // if (BlockType.is(block, BlockTypeRegistry.ENERGY_STORAGE_PORT)) {
             return FormationProtocol.CasingType.VALVE;
         }
         return FormationProtocol.CasingType.INVALID;

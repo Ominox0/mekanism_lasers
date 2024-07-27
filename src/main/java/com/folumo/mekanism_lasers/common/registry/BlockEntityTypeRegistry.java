@@ -10,7 +10,9 @@ import mekanism.common.capabilities.Capabilities;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
+import mekanism.common.registries.MekanismBlocks;
 import mekanism.common.tile.base.TileEntityMekanism;
+import mekanism.common.tile.multiblock.TileEntityInductionCasing;
 
 public class BlockEntityTypeRegistry {
 
@@ -54,6 +56,15 @@ public class BlockEntityTypeRegistry {
                     .serverTicker(TileEntityMekanism::tickServer)
                     .withSimple(Capabilities.LASER_RECEPTOR)
                     .build();
+
+    public static final TileEntityTypeRegistryObject<EnergyStorageCasingBlockEntity> ENERGY_STORAGE_CASING =
+            BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.ENERGY_STORAGE_CASING, (blockPos, state) -> new EnergyStorageCasingBlockEntity(BlockRegistry.ENERGY_STORAGE_CASING, blockPos, state))
+          .clientTicker(TileEntityMekanism::tickClient)
+          .serverTicker(TileEntityMekanism::tickServer)
+          .withSimple(Capabilities.CONFIGURABLE)
+    //Disable item handler caps if we are the induction casing (but not the port)
+          .without(Capabilities.ITEM.block())
+            .build();
     public static final TileEntityTypeRegistryObject<EnergyStorageCellBlockEntity> ENERGY_STORAGE_CELL =
             BLOCK_ENTITY_TYPES.builder(BlockRegistry.ENERGY_STORAGE_CELL, (pos, state) -> new EnergyStorageCellBlockEntity(BlockRegistry.ENERGY_STORAGE_CELL, pos, state)).build();
 }

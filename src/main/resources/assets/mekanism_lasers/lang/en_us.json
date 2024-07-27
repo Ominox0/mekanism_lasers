@@ -16,6 +16,9 @@
   "block.mekanism_lasers.creative_laser": "Creative Laser",
   "block.mekanism_lasers.creative_toggleable_laser": "Creative Toggleable Laser",
 
+  "block.mekanism_lasers.energy_storage_casing": "Energy Storage Casing",
+  "block.mekanism_lasers.energy_storage_cell": "Energy Storage Cell",
+
   "block.mekanism_lasers.ore_generator": "Ore Generator",
 
   "item.mekanism_lasers.remote_control": "Remote Control",

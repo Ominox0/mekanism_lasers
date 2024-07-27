@@ -3,6 +3,7 @@ package com.folumo.mekanism_lasers.common.registry;
 import com.folumo.mekanism_lasers.common.block_entity.*;
 import com.folumo.mekanism_lasers.common.lang.MekanismLasersLang;
 import com.folumo.mekanism_lasers.common.tier.LaserTier;
+import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.*;
 import mekanism.common.content.blocktype.BlockShapes;
 import mekanism.common.content.blocktype.BlockTypeTile;
@@ -60,6 +61,13 @@ public class BlockTypeRegistry {
             .withGui(() -> ContainerTypeRegistry.ORE_GENERATOR)
             .with(Attributes.ACTIVE, new AttributeStateFacing(BlockStateProperties.FACING, AttributeStateFacing.FacePlacementType.SELECTED_FACE), Attributes.SECURITY)
             .withCustomShape(ORE_GENERATOR_SHAPE)
+            .build();
+
+    public static final BlockTypeTile<EnergyStorageCasingBlockEntity> ENERGY_STORAGE_CASING = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> BlockEntityTypeRegistry.ENERGY_STORAGE_CASING, MekanismLang.DESCRIPTION_INDUCTION_CASING) // TODO
+            //.withGui(() -> MekanismContainerTypes.INDUCTION_MATRIX, MekanismLang.MATRIX)
+            .with(Attributes.INVENTORY, Attributes.COMPARATOR)
+            .externalMultiblock()
             .build();
 
     public static final BlockTypeTile<EnergyStorageCellBlockEntity> ENERGY_STORAGE_CELL =
