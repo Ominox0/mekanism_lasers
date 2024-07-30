@@ -8,7 +8,10 @@ import mekanism.common.block.attribute.*;
 import mekanism.common.content.blocktype.BlockShapes;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
+import mekanism.common.registries.MekanismContainerTypes;
 import mekanism.common.registries.MekanismSounds;
+import mekanism.common.registries.MekanismTileEntityTypes;
+import mekanism.common.tile.multiblock.TileEntityInductionPort;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.function.Supplier;
@@ -64,10 +67,18 @@ public class BlockTypeRegistry {
             .build();
 
     public static final BlockTypeTile<EnergyStorageCasingBlockEntity> ENERGY_STORAGE_CASING = BlockTypeTile.BlockTileBuilder
-            .createBlock(() -> BlockEntityTypeRegistry.ENERGY_STORAGE_CASING, MekanismLang.DESCRIPTION_INDUCTION_CASING) // TODO
+            .createBlock(() -> BlockEntityTypeRegistry.ENERGY_STORAGE_CASING, MekanismLasersLang.DESCRIPTION_ENERGY_STORAGE_CASING)
             //.withGui(() -> MekanismContainerTypes.INDUCTION_MATRIX, MekanismLang.MATRIX)
             .with(Attributes.INVENTORY, Attributes.COMPARATOR)
             .externalMultiblock()
+            .build();
+
+    public static final BlockTypeTile<EnergyStoragePortBlockEntity> ENERGY_STORAGE_PORT = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> BlockEntityTypeRegistry.ENERGY_STORAGE_PORT, MekanismLasersLang.DESCRIPTION_ENERGY_STORAGE_PORT)
+            //.withGui(() -> MekanismContainerTypes.INDUCTION_MATRIX, MekanismLang.MATRIX)
+            .with(Attributes.INVENTORY, Attributes.COMPARATOR, Attributes.ACTIVE)
+            .externalMultiblock()
+            //.withComputerSupport("inductionPort")
             .build();
 
     public static final BlockTypeTile<EnergyStorageCellBlockEntity> ENERGY_STORAGE_CELL =

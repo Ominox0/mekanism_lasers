@@ -13,6 +13,7 @@ import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.registries.MekanismBlocks;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.tile.multiblock.TileEntityInductionCasing;
+import mekanism.common.tile.multiblock.TileEntityInductionPort;
 
 public class BlockEntityTypeRegistry {
 
@@ -46,9 +47,9 @@ public class BlockEntityTypeRegistry {
 
     private static TileEntityTypeRegistryObject<ToggleableLaserBlockEntity> createToggleableLaser(BlockRegistryObject<ToggleableLaser, ToggleableLaserBlockItem> block) {
         return BLOCK_ENTITY_TYPES.mekBuilder(block, (pos, state) -> new ToggleableLaserBlockEntity(block, pos, state))
-                .serverTicker(TileEntityMekanism::tickServer)
-                .withSimple(Capabilities.LASER_RECEPTOR)
-                .build();
+                    .serverTicker(TileEntityMekanism::tickServer)
+                    .withSimple(Capabilities.LASER_RECEPTOR)
+                    .build();
     }
 
     public static final TileEntityTypeRegistryObject<OreGeneratorBlockEntity> ORE_GENERATOR =
@@ -59,12 +60,22 @@ public class BlockEntityTypeRegistry {
 
     public static final TileEntityTypeRegistryObject<EnergyStorageCasingBlockEntity> ENERGY_STORAGE_CASING =
             BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.ENERGY_STORAGE_CASING, (blockPos, state) -> new EnergyStorageCasingBlockEntity(BlockRegistry.ENERGY_STORAGE_CASING, blockPos, state))
-          .clientTicker(TileEntityMekanism::tickClient)
-          .serverTicker(TileEntityMekanism::tickServer)
-          .withSimple(Capabilities.CONFIGURABLE)
+                    .clientTicker(TileEntityMekanism::tickClient)
+                    .serverTicker(TileEntityMekanism::tickServer)
+                    .withSimple(Capabilities.CONFIGURABLE)
     //Disable item handler caps if we are the induction casing (but not the port)
-          .without(Capabilities.ITEM.block())
-            .build();
+                    .without(Capabilities.ITEM.block())
+                    .build();
+
+    public static final TileEntityTypeRegistryObject<EnergyStoragePortBlockEntity> ENERGY_STORAGE_PORT =
+            BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.ENERGY_STORAGE_PORT, (blockPos, state) -> new  EnergyStoragePortBlockEntity(BlockRegistry.ENERGY_STORAGE_PORT, blockPos, state))
+                    .clientTicker(TileEntityMekanism::tickClient)
+                    .serverTicker(TileEntityMekanism::tickServer)
+                    .withSimple(Capabilities.LASER_RECEPTOR)
+                    .withSimple(Capabilities.CONFIGURABLE)
+                    .build();
+
+
     public static final TileEntityTypeRegistryObject<EnergyStorageCellBlockEntity> ENERGY_STORAGE_CELL =
             BLOCK_ENTITY_TYPES.builder(BlockRegistry.ENERGY_STORAGE_CELL, (pos, state) -> new EnergyStorageCellBlockEntity(BlockRegistry.ENERGY_STORAGE_CELL, pos, state)).build();
 }

@@ -6,11 +6,8 @@ import com.folumo.mekanism_lasers.common.block.*;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import com.folumo.mekanism_lasers.common.block_entity.EnergyStorageCasingBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.EnergyStorageCellBlockEntity;
+import com.folumo.mekanism_lasers.common.block_entity.*;
 import mekanism.common.block.prefab.BlockTile;
-import com.folumo.mekanism_lasers.common.block_entity.LaserBlockEntity;
-import com.folumo.mekanism_lasers.common.block_entity.ToggleableLaserBlockEntity;
 import com.folumo.mekanism_lasers.common.item.LaserBlockItem;
 import com.folumo.mekanism_lasers.common.item.LaserStopperBlockItem;
 import com.folumo.mekanism_lasers.common.item.OreGeneratorBlockItem;
@@ -63,8 +60,9 @@ public class BlockRegistry {
     public static final BlockRegistryObject<BlockTile<EnergyStorageCasingBlockEntity, BlockTypeTile<EnergyStorageCasingBlockEntity>>, BlockItem> ENERGY_STORAGE_CASING =
             BLOCKS.register("energy_storage_casing", () -> new BlockTile<>(BlockTypeRegistry.ENERGY_STORAGE_CASING, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)), BlockItem::new);
 
-//public static final BlockRegistryObject<OreGenerator, OreGeneratorBlockItem> ENERGY_STORAGE_PORT = BLOCKS.register("energy_storage_port",
-//            () -> new OreGenerator(BlockTypeRegistry.ENERGY_STORAGE_PORT), OreGeneratorBlockItem::new);
+    public static final BlockRegistryObject<BlockTile<EnergyStoragePortBlockEntity, BlockTypeTile<EnergyStoragePortBlockEntity>>, BlockItem> ENERGY_STORAGE_PORT =
+            BLOCKS.register("energy_storage_port", () -> new BlockTile<>(BlockTypeRegistry.ENERGY_STORAGE_PORT, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)), BlockItem::new);
+
     public static final BlockRegistryObject<BlockTile<EnergyStorageCellBlockEntity, BlockTypeTile<EnergyStorageCellBlockEntity>>, BlockItem> ENERGY_STORAGE_CELL =
         BLOCKS.register("energy_storage_cell", () -> new BlockTile<>(BlockTypeRegistry.ENERGY_STORAGE_CELL, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)), BlockItem::new);
 

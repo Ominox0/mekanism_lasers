@@ -1,0 +1,10 @@
+{
+  "variants":{
+    "active=false": {
+      "model":"mekanism_lasers:block/energy_storage_port"
+    },
+    "active=true":{
+      "model":"mekanism_lasers:block/energy_storage_port_output"
+    }
+  }
+}
