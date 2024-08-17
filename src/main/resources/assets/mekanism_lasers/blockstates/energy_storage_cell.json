@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mekanism_lasers:block/energy_storage_cell"
+    }
+  }
+}

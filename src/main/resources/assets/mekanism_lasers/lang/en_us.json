@@ -31,6 +31,8 @@
   "description.mekanism.laser_toggleable": "Highly concentrated light; but it can be switched on/off :D",
   "description.mekanism.ore_generator": "Uses light to convert energy to ores",
 
+  "es.port.mode": "",
+
   "item_group.mekanism_lasers": "Mekanism Lasers",
 
   "gui.ore_generator.energy_per_ore": "Energy used per ore generated "

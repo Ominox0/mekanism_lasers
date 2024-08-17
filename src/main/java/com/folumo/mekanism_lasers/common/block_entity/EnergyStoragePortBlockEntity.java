@@ -10,11 +10,8 @@ import mekanism.common.MekanismLang;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.capabilities.holder.energy.IEnergyContainerHolder;
 import mekanism.common.capabilities.holder.energy.ProxiedEnergyContainerHolder;
-import mekanism.common.integration.computer.annotation.ComputerMethod;
 import mekanism.common.integration.energy.BlockEnergyCapabilityCache;
 import mekanism.common.lib.multiblock.MultiblockData;
-import mekanism.common.registries.MekanismBlocks;
-import mekanism.common.tile.multiblock.TileEntityInductionCasing;
 import mekanism.common.util.text.BooleanStateDisplay;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,7 +19,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumMap;
@@ -77,28 +73,21 @@ public class EnergyStoragePortBlockEntity extends EnergyStorageCasingBlockEntity
         return getMultiblock().getCurrentRedstoneLevel();
     }
 
-    //Methods relating to IComputerTile
-    @ComputerMethod(methodDescription = "true -> output, false -> input.")
-    boolean getMode() {// TODO change this to enum?
-        return getActive();
-    }
-
-    @ComputerMethod(methodDescription = "true -> output, false -> input")
-    void setMode(boolean output) {
-        setActive(output);
+    public boolean isInput(){
+        return true;
     }
 
     @Override
     public void receiveLaserEnergy(long energy) {
         energyStorageMultiblockData multiblock = getMultiblock();
 
-        if (multiblock.isFormed() & !getMode()){
-            multiblock.insertEnergy(energy, Action.EXECUTE);
+        if (multiblock.isFormed() & isInput()){
+            multiblock.addEnergy(energy);
         }
     }
 
     @Override
     public boolean canLasersDig() {
-        return !getMode();
+        return !isInput();
     }
 }

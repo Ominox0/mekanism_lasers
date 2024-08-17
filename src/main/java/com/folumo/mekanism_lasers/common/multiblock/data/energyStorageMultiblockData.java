@@ -3,6 +3,8 @@ package com.folumo.mekanism_lasers.common.multiblock.data;
 import com.folumo.mekanism_lasers.common.block_entity.EnergyStorageCellBlockEntity;
 import com.folumo.mekanism_lasers.common.block_entity.EnergyStoragePortBlockEntity;
 import com.folumo.mekanism_lasers.common.multiblock.container.energyStorageMultiblockContainer;
+import mekanism.api.Action;
+import mekanism.api.AutomationType;
 import mekanism.common.lib.multiblock.IValveHandler;
 import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.util.WorldUtils;
@@ -20,6 +22,10 @@ public class energyStorageMultiblockData extends MultiblockData {
     public energyStorageMultiblockData(BlockEntity tile) {
         super(tile);
         energyContainers.add(energyContainer = new energyStorageMultiblockContainer(this));
+    }
+
+    public void addEnergy(long energy){
+        energyContainer.insert(energy, Action.EXECUTE, AutomationType.INTERNAL);
     }
 
     public void addCell(EnergyStorageCellBlockEntity cell){

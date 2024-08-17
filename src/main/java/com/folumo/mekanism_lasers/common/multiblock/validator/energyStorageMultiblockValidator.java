@@ -5,8 +5,10 @@ import com.folumo.mekanism_lasers.common.multiblock.data.energyStorageMultiblock
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.content.matrix.MatrixMultiblockData;
+import mekanism.common.lib.math.voxel.VoxelCuboid;
 import mekanism.common.lib.multiblock.CuboidStructureValidator;
 import mekanism.common.lib.multiblock.FormationProtocol;
+import mekanism.common.lib.multiblock.StructureHelper;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.TickRateManager;
@@ -18,12 +20,21 @@ import com.folumo.mekanism_lasers.common.registry.BlockTypeRegistry;
 import net.minecraft.world.level.chunk.ChunkAccess;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 
 public class energyStorageMultiblockValidator extends CuboidStructureValidator<energyStorageMultiblockData> {
 
     private final List<EnergyStorageCellBlockEntity> cells = new ArrayList<>();
+    private static final VoxelCuboid MIN_CUBOID = new VoxelCuboid(3, 4, 3);
+    private static final VoxelCuboid MAX_CUBOID = new VoxelCuboid(3, 4, 3);
+
+    @Override
+    public boolean precheck() {
+        cuboid = StructureHelper.fetchCuboid(structure, MIN_CUBOID, MAX_CUBOID, EnumSet.complementOf(EnumSet.of(VoxelCuboid.CuboidSide.TOP)), 8);
+        return cuboid != null;
+    }
 
     @Override
     protected FormationProtocol.CasingType getCasingType(BlockState state) {

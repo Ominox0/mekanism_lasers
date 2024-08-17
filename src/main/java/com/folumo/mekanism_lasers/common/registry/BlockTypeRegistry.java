@@ -3,21 +3,18 @@ package com.folumo.mekanism_lasers.common.registry;
 import com.folumo.mekanism_lasers.common.block_entity.*;
 import com.folumo.mekanism_lasers.common.lang.MekanismLasersLang;
 import com.folumo.mekanism_lasers.common.tier.LaserTier;
-import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.*;
 import mekanism.common.content.blocktype.BlockShapes;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
-import mekanism.common.registries.MekanismContainerTypes;
 import mekanism.common.registries.MekanismSounds;
-import mekanism.common.registries.MekanismTileEntityTypes;
-import mekanism.common.tile.multiblock.TileEntityInductionPort;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.function.Supplier;
 
 import static com.folumo.mekanism_lasers.common.block.BlockShapes.LASER_STOPPER_SHAPE;
 import static com.folumo.mekanism_lasers.common.block.BlockShapes.ORE_GENERATOR_SHAPE;
+import static com.folumo.mekanism_lasers.common.block.BlockShapes.ENERGY_STORAGE_CELL_SHAPE;
 
 public class BlockTypeRegistry {
     public static final BlockTypeTile<LaserStopperBlockEntity> LASER_STOPPER = BlockTypeTile.BlockTileBuilder.createBlock(() -> BlockEntityTypeRegistry.LASER_STOPPER, MekanismLasersLang.DESCRIPTION_LASER_STOPPER)
@@ -83,6 +80,7 @@ public class BlockTypeRegistry {
 
     public static final BlockTypeTile<EnergyStorageCellBlockEntity> ENERGY_STORAGE_CELL =
             BlockTypeTile.BlockTileBuilder.createBlock(() -> BlockEntityTypeRegistry.ENERGY_STORAGE_CELL, MekanismLasersLang.DESCRIPTION_ENERGY_STORAGE_CELL)
+                    .withCustomShape(ENERGY_STORAGE_CELL_SHAPE)
                     .withEnergyConfig(EnergyStorageCellBlockEntity::getMaxEnergy)
                     .internalMultiblock()
                     .build();

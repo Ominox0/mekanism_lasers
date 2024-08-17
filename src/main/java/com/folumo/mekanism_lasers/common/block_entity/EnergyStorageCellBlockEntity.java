@@ -8,7 +8,6 @@ import mekanism.common.capabilities.holder.energy.IEnergyContainerHolder;
 import mekanism.common.tile.prefab.TileEntityInternalMultiblock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class EnergyStorageCellBlockEntity extends TileEntityInternalMultiblock {
@@ -30,6 +29,6 @@ public class EnergyStorageCellBlockEntity extends TileEntityInternalMultiblock {
     }
 
     public static long getMaxEnergy(){
-        return 16_000_000L;
+        return 16_000_000_000L;
     }
 }
