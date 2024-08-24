@@ -8,6 +8,7 @@ import mekanism.common.resource.BlockResourceInfo;
 import mekanism.common.tile.base.TileEntityMekanism;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -17,8 +18,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 public class LaserStopper extends BlockTile.BlockTileModel<LaserStopperBlockEntity, BlockTypeTile<LaserStopperBlockEntity>> {
@@ -34,9 +37,15 @@ public class LaserStopper extends BlockTile.BlockTileModel<LaserStopperBlockEnti
             if (item instanceof BlockItem blockItem) {
                 Block block = blockItem.getBlock();
                 laserStopperBlockEntity.changeTexture(block.defaultBlockState());
+                return ItemInteractionResult.SUCCESS;
             }
         }
 
         return super.useItemOn(stack, state, world, pos, player, hand, hit);
+    }
+
+    @Override
+    protected RenderShape getRenderShape(BlockState p_60550_) {
+        return RenderShape.INVISIBLE;
     }
 }
