@@ -7,6 +7,7 @@ import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.common.lib.multiblock.IValveHandler;
 import mekanism.common.lib.multiblock.MultiblockData;
+import mekanism.common.util.CableUtils;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -22,6 +23,19 @@ public class energyStorageMultiblockData extends MultiblockData {
     public energyStorageMultiblockData(BlockEntity tile) {
         super(tile);
         energyContainers.add(energyContainer = new energyStorageMultiblockContainer(this));
+    }
+
+    @Override
+    public boolean tick(Level world) {
+        boolean ret = super.tick(world);
+        energyContainer.tick();
+        // We tick the main energy container before adding/draining from the slots, so that we make sure
+        // they get first "pickings" at attempting to get or give power, without having to worry about the
+        // rate limit of the structure being used up by the ports
+        if (!energyOutputTargets.isEmpty() && !energyContainer.isEmpty()) {
+            CableUtils.emit(getActiveOutputs(energyOutputTargets), energyContainer, Long.MAX_VALUE);
+        }
+        return ret;
     }
 
     public void addEnergy(long energy){

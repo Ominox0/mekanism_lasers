@@ -107,4 +107,58 @@ public class energyStorageMultiblockContainer implements IEnergyContainer {
         }
         return amount;
     }
+
+    public void tick() {
+        //if (!invalidPositions.isEmpty()) {
+        //    for (BlockPos invalidPosition : invalidPositions) {
+        //        cells.remove(invalidPosition);
+        //        providers.remove(invalidPosition);
+        //    }
+        //    invalidPositions.clear();
+        //}
+        if (queuedInput < queuedOutput) {
+            //queuedInput is smaller - we are removing energy
+            removeEnergy(queuedOutput - queuedInput);
+        } else if (queuedInput > queuedOutput) {
+            //queuedInput is larger - we are adding energy
+            addEnergy(queuedInput - queuedOutput);
+        }
+        lastInput = queuedInput;
+        lastOutput = queuedOutput;
+        queuedInput = 0L;
+        queuedOutput = 0L;
+    }
+
+    private void removeEnergy(long energy) {
+        cachedTotal -= energy;
+        for (IEnergyContainer container : cells.values()) {
+            //Note: extracting from the cell's energy container handles marking the cell for saving if it changes
+            long extracted = container.extract(energy, Action.EXECUTE, AutomationType.INTERNAL);
+            if (extracted > 0L) {
+                energy -= extracted;
+                if (energy == 0L) {
+                    //Check less than equal rather than just equal in case something went wrong
+                    // and break if we don't need to remove any more energy
+                    break;
+                }
+            }
+        }
+    }
+
+    private void addEnergy(long energy) {
+        cachedTotal += energy;
+        for (IEnergyContainer container : cells.values()) {
+            //Note: inserting into the cell's energy container handles marking the cell for saving if it changes
+            long remainder = container.insert(energy, Action.EXECUTE, AutomationType.INTERNAL);
+            if (remainder < energy) {
+                //Our cell accepted at least some energy
+                if (remainder == 0L) {
+                    //Check less than equal rather than just equal in case something went wrong
+                    // and break if we don't have any energy left to add
+                    break;
+                }
+                energy = remainder;
+            }
+        }
+    }
 }

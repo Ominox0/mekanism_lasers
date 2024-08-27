@@ -29,7 +29,6 @@ public class Mekanism_lasers {
         ItemRegistry.ITEMS.register(modEventBus);
         ItemRegistry.ModItemTab.CREATIVE_MODE_TABS.register(modEventBus);
 
-
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 }
@@ -37,12 +36,10 @@ public class Mekanism_lasers {
 
 /* TODO:
  *  new features/modification in next update:
- *  1. New laser type (Toggleable Laser) -> Done
- *  2. Remote Control to turn on/off Toggleable Lasers -> in progress
- *  3. Remote Interface (you have to put Remove Control in it to work) -> queened
+ *  3. Remote Interface (you have to put Remote Control in it to work) -> queened
  *      -Takes redstone signal and based on signal it will turn on/off Toggleable Lasers
- *  4. Make Ore Generator be able to rotate -> Done
  *  5. Laser Configurator -> queened
  *      -Make it so that you can open gui for any laser except mekanism:laser
  *      -Empty gui with only title
+ *  6. fix the laser stopper hitbox
  */

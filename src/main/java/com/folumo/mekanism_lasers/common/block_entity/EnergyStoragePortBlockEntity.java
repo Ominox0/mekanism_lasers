@@ -1,7 +1,6 @@
 package com.folumo.mekanism_lasers.common.block_entity;
 
 import com.folumo.mekanism_lasers.common.multiblock.data.energyStorageMultiblockData;
-import mekanism.api.Action;
 import mekanism.api.IContentsListener;
 import mekanism.api.lasers.ILaserReceptor;
 import mekanism.api.providers.IBlockProvider;
@@ -73,21 +72,17 @@ public class EnergyStoragePortBlockEntity extends EnergyStorageCasingBlockEntity
         return getMultiblock().getCurrentRedstoneLevel();
     }
 
-    public boolean isInput(){
-        return true;
-    }
-
     @Override
     public void receiveLaserEnergy(long energy) {
         energyStorageMultiblockData multiblock = getMultiblock();
 
-        if (multiblock.isFormed() & isInput()){
+        if (multiblock.isFormed()){
             multiblock.addEnergy(energy);
         }
     }
 
     @Override
     public boolean canLasersDig() {
-        return !isInput();
+        return false;
     }
 }
