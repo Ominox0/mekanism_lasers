@@ -4,6 +4,8 @@ import com.folumo.mekanism_lasers.common.tier.LaserTier;
 import mekanism.api.providers.IBlockProvider;
 import mekanism.common.block.attribute.Attribute;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,5 +45,17 @@ public class ToggleableLaserBlockEntity extends LaserBlockEntity {
     @Override
     public @NotNull Component getName() {
         return Component.literal("Toggleable Laser");
+    }
+
+    @Override
+    public void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider provider) {
+        super.loadAdditional(nbt, provider);
+        this.active = nbt.getBoolean("active");
+    }
+
+    @Override
+    public void saveAdditional(@NotNull CompoundTag nbtTags, @NotNull HolderLookup.Provider provider) {
+        super.saveAdditional(nbtTags, provider);
+        nbtTags.putBoolean("active", this.active);
     }
 }
