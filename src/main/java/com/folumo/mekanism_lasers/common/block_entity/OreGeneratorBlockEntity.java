@@ -1,5 +1,6 @@
 package com.folumo.mekanism_lasers.common.block_entity;
 
+import com.folumo.mekanism_lasers.Config;
 import com.folumo.mekanism_lasers.common.registry.BlockRegistry;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
@@ -32,7 +33,9 @@ import java.util.List;
 public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
     private int coolDown = 0;
     public static long energyCap = 64_000_000L;
-    public static long usage = 16_000_000L;
+    public static long usage = Config.oreGeneratorFabricationCost.getAsLong();
+    public static int cooldown = Config.oreGeneratorCooldown.getAsInt();
+    public static int numberOfOres = Config.oreGeneratorNumberOfOres.getAsInt();
     private LaserEnergyContainer energyContainer;
 
 
@@ -88,10 +91,10 @@ public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
     @Override
     protected boolean onUpdateServer() {
         if(coolDown == 0) {
-            coolDown = 20 * 5;
+            coolDown = 20 * cooldown;
 
             if(energyContainer.getEnergy() >= getUsage()) {
-                generateOre();
+                generateOres();
             }
         } else {
             coolDown--;
@@ -99,11 +102,18 @@ public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
         return false;
     }
 
-    private void generateOre() {
+    private void generateOres() {
         List<IInventorySlot> inventorySlots = getInventorySlots(null);
-        ItemStack drop = InventoryUtils.insertItem(inventorySlots, getRandomDrop(), Action.EXECUTE, AutomationType.INTERNAL);
-        if (drop.isEmpty()) {
-            energyContainer.extract(getUsage(), Action.EXECUTE, AutomationType.INTERNAL);
+        long energyPerOre = getUsage() / numberOfOres;
+
+
+        for (int i = 0; i < numberOfOres; i++) {
+            ItemStack drop = InventoryUtils.insertItem(inventorySlots, getRandomDrop(), Action.EXECUTE, AutomationType.INTERNAL);
+            if (drop.isEmpty()) {
+                energyContainer.extract(energyPerOre, Action.EXECUTE, AutomationType.INTERNAL);
+            } else {
+                break;
+            }
         }
     }
 

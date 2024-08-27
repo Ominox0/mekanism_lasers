@@ -1,20 +1,27 @@
 package com.folumo.mekanism_lasers;
 
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-@EventBusSubscriber(modid = Mekanism_lasers.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class Config
 {
+    public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+    public static final ModConfigSpec SPEC;
+    public static final ModConfigSpec.IntValue oreGeneratorCooldown;
+    public static final ModConfigSpec.LongValue oreGeneratorFabricationCost;
+    public static final ModConfigSpec.IntValue oreGeneratorNumberOfOres;
 
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
-    static final ModConfigSpec SPEC = BUILDER.build();
 
-    @SubscribeEvent
-    static void onLoad(final ModConfigEvent event)
-    {
+    static  {
+        BUILDER.push("Mekanism Lasers Config");
+
+        oreGeneratorCooldown = BUILDER.comment("Cooldown of the ore generator (in seconds)").defineInRange("oreGeneratorCooldown", 4, 0, Integer.MAX_VALUE);
+        oreGeneratorFabricationCost = BUILDER.comment("Energy cost of fabricating ore/ores").defineInRange("oreGeneratorFabricationCost", 16_000_000L, 0, Integer.MAX_VALUE);
+        oreGeneratorNumberOfOres = BUILDER.comment("How much ores do you get from one cycle").defineInRange("oreGeneratorNumberOfOres", 1, 1, Integer.MAX_VALUE);
+
+        BUILDER.pop();
+        SPEC = BUILDER.build();
 
     }
+
+
 }
