@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "RCR"
+  ],
+  "key": {
+    "R": {
+      "tag": "mekanism:alloys/infused"
+    },
+    "I": {
+      "tag": "c:gems/diamond"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "mekanism_lasers:remote_control",
+    "count": 1
+  }
+}
