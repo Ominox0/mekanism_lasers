@@ -21,8 +21,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.folumo.mekanism_lasers.common.registry.ComponentRegistry.RC_ACTIVITY;
 import static com.folumo.mekanism_lasers.common.registry.ComponentRegistry.RC_BLOCKPOS;
+import static com.folumo.mekanism_lasers.common.registry.ComponentRegistry.RC_ACTIVITY;
 
 public class RemoteControlItem extends Item {
 
@@ -51,7 +51,7 @@ public class RemoteControlItem extends Item {
 
             BlockEntity tile = WorldUtils.getTileEntity(world, pos);
 
-            if (tile instanceof ToggleableLaserBlockEntity) {
+            if (tile instanceof ToggleableLaserBlockEntity && ((ToggleableLaserBlockEntity) tile).ownerMatches(player)) {
                 List<BlockPos> linkedLasers = getBlockPos(stack);
                 if (linkedLasers.contains(pos)) {
                     linkedLasers.remove(pos);
@@ -90,7 +90,7 @@ public class RemoteControlItem extends Item {
     }
 
     private List<BlockPos> getBlockPos(ItemStack stack){
-        return stack.getComponents().get(RC_BLOCKPOS);
+        return new ArrayList(stack.getComponents().get(RC_BLOCKPOS));
     }
 
     private boolean getActive(ItemStack stack){
