@@ -65,19 +65,24 @@ public class RemoteControlItem extends Item {
 
             }
             player.sendSystemMessage(Component.literal("Switching laser mode"));
-            stack.set(RC_ACTIVITY, !getActive(stack));
+            switchLaserMode(stack, world, player);
 
-            List<BlockPos> linkedLasers = getBlockPos(stack);
-            boolean finalLasersStatus = getActive(stack);
-
-            linkedLasers.forEach(pos2 -> {
-                BlockEntity tile2 = WorldUtils.getTileEntity(world, pos2);
-                if (tile2 instanceof ToggleableLaserBlockEntity) {
-                    ((ToggleableLaserBlockEntity) tile2).setLaserActivity(finalLasersStatus, player);
-                }
-            });
         }
         return InteractionResult.PASS;
+    }
+
+    public void switchLaserMode(ItemStack stack, Level world, Player player){
+        stack.set(RC_ACTIVITY, !getActive(stack));
+
+        List<BlockPos> linkedLasers = getBlockPos(stack);
+        boolean finalLasersStatus = getActive(stack);
+
+        linkedLasers.forEach(pos2 -> {
+            BlockEntity tile2 = WorldUtils.getTileEntity(world, pos2);
+            if (tile2 instanceof ToggleableLaserBlockEntity) {
+                ((ToggleableLaserBlockEntity) tile2).setLaserActivity(finalLasersStatus, player);
+            }
+        });
     }
 
     @Override

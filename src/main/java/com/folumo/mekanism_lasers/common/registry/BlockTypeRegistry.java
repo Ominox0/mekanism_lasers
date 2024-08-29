@@ -63,6 +63,14 @@ public class BlockTypeRegistry {
             .withCustomShape(ORE_GENERATOR_SHAPE)
             .build();
 
+    public static final BlockTypeTile<InterfaceBlockEntity> INTERFACE_BLOCK = BlockTypeTile.BlockTileBuilder
+            .createBlock(() -> BlockEntityTypeRegistry.INTERFACE_BLOCK, MekanismLasersLang.DESCRIPTION_INTERFACE_BLOCK)
+            .withGui(() -> ContainerTypeRegistry.INTERFACE_BLOCK)
+            .with(Attributes.ACTIVE, new AttributeStateFacing(BlockStateProperties.FACING, AttributeStateFacing.FacePlacementType.SELECTED_FACE), Attributes.SECURITY)
+            .build();
+
+
+
     public static final BlockTypeTile<EnergyStorageCasingBlockEntity> ENERGY_STORAGE_CASING = BlockTypeTile.BlockTileBuilder
             .createBlock(() -> BlockEntityTypeRegistry.ENERGY_STORAGE_CASING, MekanismLasersLang.DESCRIPTION_ENERGY_STORAGE_CASING)
             //.withGui(() -> MekanismContainerTypes.INDUCTION_MATRIX, MekanismLang.MATRIX)

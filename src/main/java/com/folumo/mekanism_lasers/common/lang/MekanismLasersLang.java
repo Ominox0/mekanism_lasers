@@ -15,6 +15,7 @@ public enum MekanismLasersLang implements ILangEntry {
     DESCRIPTION_ENERGY_STORAGE_CASING("description", "energy_storage_casing"),
     DESCRIPTION_ENERGY_STORAGE_PORT("description", "energy_storage_port"),
     DESCRIPTION_ENERGY_STORAGE_CELL("description", "energy_storage_cell"),
+    DESCRIPTION_INTERFACE_BLOCK("description", "interface_block"),
     ENERGY_STORAGE_PORT_MODE("es", "port.mode")
     ;
 

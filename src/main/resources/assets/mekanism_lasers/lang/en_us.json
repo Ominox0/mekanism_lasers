@@ -21,10 +21,12 @@
   "block.mekanism_lasers.energy_storage_cell": "Energy Storage Cell",
 
   "block.mekanism_lasers.ore_generator": "Ore Generator",
+  "block.mekanism_lasers.interface_block": "Interface Block",
 
   "item.mekanism_lasers.remote_control": "Remote Control",
 
   "container.mekanism_lasers.ore_generator": "Ore Generator",
+  "container.mekanism_lasers.interface_block": "Interface Block",
 
   "description.mekanism.laser_stopper": "Block that can take shape of any block and still block lasers",
   "description.mekanism.laser": "Highly concentrated light :D",

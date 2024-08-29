@@ -10,10 +10,7 @@ import mekanism.common.capabilities.Capabilities;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
-import mekanism.common.registries.MekanismBlocks;
 import mekanism.common.tile.base.TileEntityMekanism;
-import mekanism.common.tile.multiblock.TileEntityInductionCasing;
-import mekanism.common.tile.multiblock.TileEntityInductionPort;
 
 public class BlockEntityTypeRegistry {
 
@@ -56,6 +53,11 @@ public class BlockEntityTypeRegistry {
             BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.ORE_GENERATOR, OreGeneratorBlockEntity::new)
                     .serverTicker(TileEntityMekanism::tickServer)
                     .withSimple(Capabilities.LASER_RECEPTOR)
+                    .build();
+
+    public static final TileEntityTypeRegistryObject<InterfaceBlockEntity> INTERFACE_BLOCK =
+            BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.INTERFACE_BLOCK, InterfaceBlockEntity::new)
+                    .serverTicker(TileEntityMekanism::tickServer)
                     .build();
 
     public static final TileEntityTypeRegistryObject<EnergyStorageCasingBlockEntity> ENERGY_STORAGE_CASING =

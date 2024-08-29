@@ -7,11 +7,8 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import com.folumo.mekanism_lasers.common.block_entity.*;
+import com.folumo.mekanism_lasers.common.item.*;
 import mekanism.common.block.prefab.BlockTile;
-import com.folumo.mekanism_lasers.common.item.LaserBlockItem;
-import com.folumo.mekanism_lasers.common.item.LaserStopperBlockItem;
-import com.folumo.mekanism_lasers.common.item.OreGeneratorBlockItem;
-import com.folumo.mekanism_lasers.common.item.ToggleableLaserBlockItem;
 import mekanism.api.tier.ITier;
 import mekanism.common.block.attribute.AttributeTier;
 import mekanism.common.content.blocktype.BlockType;
@@ -54,7 +51,8 @@ public class BlockRegistry {
             () -> new OreGenerator(BlockTypeRegistry.ORE_GENERATOR), OreGeneratorBlockItem::new);
 
 
-
+    public static final BlockRegistryObject<InterfaceBlock, InterfaceBlockItem> INTERFACE_BLOCK = BLOCKS.register("interface_block",
+            () -> new InterfaceBlock(BlockTypeRegistry.INTERFACE_BLOCK), InterfaceBlockItem::new);
 
 
     public static final BlockRegistryObject<BlockTile<EnergyStorageCasingBlockEntity, BlockTypeTile<EnergyStorageCasingBlockEntity>>, BlockItem> ENERGY_STORAGE_CASING =
