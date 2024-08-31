@@ -36,10 +36,9 @@ public class Mekanism_lasers {
 
 /* TODO:
  *  new features/modification in next update:
- *  3. Remote Interface (you have to put Remote Control in it to work) -> queened
- *      -Takes redstone signal and based on signal it will turn on/off Toggleable Lasers
+ *  8. Remote Interface  -> have to make texture, blockstate, loot table and recipe
  *  5. Laser Configurator -> queened
  *      -Make it so that you can open gui for any laser except mekanism:laser
  *      -Empty gui with only title
- *  6. fix the laser stopper hitbox
+ *  7. fix the laser stopper hitbox (again, but this time do smt about passable blocks, like SIGNS, VERY IMPORTANT TO FIX)
  */
