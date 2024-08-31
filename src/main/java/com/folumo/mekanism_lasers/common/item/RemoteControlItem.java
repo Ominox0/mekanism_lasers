@@ -7,7 +7,9 @@ import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.util.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.folumo.mekanism_lasers.common.registry.ComponentRegistry.RC_BLOCKPOS;
 import static com.folumo.mekanism_lasers.common.registry.ComponentRegistry.RC_ACTIVITY;
@@ -42,10 +45,24 @@ public class RemoteControlItem extends Item {
 
     @NotNull
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level world, @NotNull Player player, @NotNull InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+
+        if (!world.isClientSide) {
+            player.sendSystemMessage(Component.literal("Switching laser mode"));
+            switchLaserMode(stack, world, player);
+
+        }
+        return InteractionResultHolder.pass(stack);
+    }
+
+    @Override
+    public @NotNull InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
         Level world = context.getLevel();
         ItemStack stack = context.getItemInHand();
+
+
         if (!world.isClientSide && player != null) {
             BlockPos pos = context.getClickedPos();
 
@@ -95,7 +112,7 @@ public class RemoteControlItem extends Item {
     }
 
     private List<BlockPos> getBlockPos(ItemStack stack){
-        return new ArrayList(stack.getComponents().get(RC_BLOCKPOS));
+        return new ArrayList<>(Objects.requireNonNull(stack.getComponents().get(RC_BLOCKPOS)));
     }
 
     private boolean getActive(ItemStack stack){

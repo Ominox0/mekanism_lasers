@@ -9,9 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,6 +42,7 @@ public class LaserStopperBlockEntity extends TileEntityMekanism implements ILase
 
     public void changeTexture(BlockState state) {
         this.currentBlockState = state;
+
         if (this.level != null) {
             this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3); // Notify the level of the change
         }

@@ -20,6 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.UUID;
+
 
 public class InterfaceBlockEntity extends TileEntityMekanism {
     private static boolean lastRedstoneLevel;
@@ -59,23 +61,42 @@ public class InterfaceBlockEntity extends TileEntityMekanism {
     protected boolean onUpdateServer() {
         boolean ret = super.onUpdateServer();
 
-        boolean thisRedstoneLevel = hasNeighborSignal(getLevel(), getBlockPos());
+        Level level = getLevel();
+
+        if (level == null){
+            return ret;
+        }
+
+        boolean thisRedstoneLevel = hasNeighborSignal(level, getBlockPos());
 
         if (thisRedstoneLevel != lastRedstoneLevel){
             lastRedstoneLevel = thisRedstoneLevel;
             if (thisRedstoneLevel){
                 IInventorySlot slot = getInventorySlot(0, null);
+
+                if (slot == null){
+                    return ret;
+                }
+
                 ItemStack stack = slot.getStack();
 
                 if (!stack.isEmpty()){
-                    if (stack.getItem() instanceof RemoteControlItem){
-                        RemoteControlItem item = (RemoteControlItem) stack.getItem();
+                    if (stack.getItem() instanceof RemoteControlItem item){
 
                         ServerLevel serverLevel = (ServerLevel) getLevel();
                         MinecraftServer server = serverLevel.getServer();
-                        ServerPlayer player = server.getPlayerList().getPlayer(getOwnerUUID());
 
-                        item.switchLaserMode(stack, getLevel(), player);
+                        UUID ownerUUID = getOwnerUUID();
+
+                        if (ownerUUID != null){
+                            ServerPlayer player = server.getPlayerList().getPlayer(ownerUUID);
+
+                            if (player != null){
+                                item.switchLaserMode(stack, getLevel(), player);
+                            }
+
+                        }
+
                     }
                 }
             }

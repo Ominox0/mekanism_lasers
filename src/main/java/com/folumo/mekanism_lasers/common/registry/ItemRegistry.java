@@ -3,11 +3,7 @@ package com.folumo.mekanism_lasers.common.registry;
 import com.folumo.mekanism_lasers.Mekanism_lasers;
 import com.folumo.mekanism_lasers.common.item.LaserConfiguratorItem;
 import com.folumo.mekanism_lasers.common.item.RemoteControlItem;
-import mekanism.common.attachments.containers.ContainerType;
-import mekanism.common.attachments.containers.energy.EnergyContainersBuilder;
 import mekanism.common.block.BlockBounding;
-import mekanism.common.config.MekanismConfig;
-import mekanism.common.item.ItemPortableTeleporter;
 import mekanism.common.registration.impl.ItemDeferredRegister;
 import mekanism.common.registration.impl.ItemRegistryObject;
 import net.minecraft.core.Holder;
@@ -24,11 +20,6 @@ public class ItemRegistry {
     public static final ItemRegistryObject<RemoteControlItem> REMOTE_CONTROL = ITEMS.registerItem("remote_control", RemoteControlItem::new);
     public static final ItemRegistryObject<LaserConfiguratorItem> LASER_CONFIGURATOR = ITEMS.registerItem("laser_configurator", LaserConfiguratorItem::new);
 
-    //public static final ItemRegistryObject<ItemPortableTeleporter> PORTABLE_TELEPORTER = ITEMS.registerItem("portable_teleporter", ItemPortableTeleporter::new)
-    //        .addAttachedContainerCapabilities(ContainerType.ENERGY, () -> EnergyContainersBuilder.builder()
-    //                .addBasic(MekanismConfig.gear.portableTeleporterChargeRate, MekanismConfig.gear.portableTeleporterMaxEnergy)
-    //                .build(), MekanismConfig.gear
-    //        );
 
     public static class ModItemTab {
 

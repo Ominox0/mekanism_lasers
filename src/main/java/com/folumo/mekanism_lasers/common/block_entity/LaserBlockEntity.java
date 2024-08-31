@@ -28,6 +28,11 @@ public class LaserBlockEntity extends TileEntityLaserReceptor {
         }
     }
 
+    @Override
+    public void receiveLaserEnergy(long energy) {
+
+    }
+
     protected void addInitialEnergyContainers(EnergyContainerHelper builder, IContentsListener listener) {
         builder.addContainer(this.energyContainer = LaserEnergyContainer.create(BasicEnergyContainer.notExternal, BasicEnergyContainer.alwaysTrue, this, listener), RelativeSide.BACK);
     }
