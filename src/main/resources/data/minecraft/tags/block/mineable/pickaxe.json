@@ -12,6 +12,8 @@
     "mekanism_lasers:elite_toggleable_laser",
     "mekanism_lasers:ultimate_toggleable_laser",
 
-    "mekanism_lasers:ore_generator"
+    "mekanism_lasers:ore_generator",
+
+    "mekanism_lasers:interface_block"
   ]
 }

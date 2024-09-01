@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RPR",
+    "P#P",
+    "RPR"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "#": {
+      "item": "mekanism:steel_casing"
+    }
+  },
+  "result": {
+    "id": "mekanism_lasers:interface_block",
+    "count": 1
+  }
+}
