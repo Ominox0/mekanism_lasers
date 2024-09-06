@@ -81,8 +81,6 @@ public class RemoteControlItem extends Item {
                 return InteractionResult.PASS;
 
             }
-            player.sendSystemMessage(Component.literal("Switching laser mode"));
-            switchLaserMode(stack, world, player);
 
         }
         return InteractionResult.PASS;
