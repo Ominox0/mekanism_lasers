@@ -3,7 +3,7 @@
 	"textures": {
 		"0": "mekanism_lasers:block/cell/inner",
 		"1": "mekanism_lasers:block/cell/outer",
-		"particle": "mekanism_lasers:block/energy_storage_cell"
+		"particle": "#1"
 	},
 	"elements": [
 		{
