@@ -1,7 +1,6 @@
 package com.folumo.mekanism_lasers.common.block_entity;
 
 import com.folumo.mekanism_lasers.Config;
-import com.folumo.mekanism_lasers.Mekanism_lasers;
 import com.folumo.mekanism_lasers.common.registry.BlockRegistry;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
