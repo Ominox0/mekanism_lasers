@@ -1,6 +1,7 @@
 package com.folumo.mekanism_lasers.common.block_entity;
 
 import com.folumo.mekanism_lasers.Config;
+import com.folumo.mekanism_lasers.Mekanism_lasers;
 import com.folumo.mekanism_lasers.common.registry.BlockRegistry;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
@@ -20,9 +21,12 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
@@ -119,8 +123,26 @@ public class OreGeneratorBlockEntity extends TileEntityLaserReceptor {
 
     private static ItemStack getRandomDrop() {
         HolderSet.Named<Block> oreTag = BuiltInRegistries.BLOCK.getTag(Tags.Blocks.ORES).orElseThrow();
-        Holder<Block> randomBlockHolder = oreTag.getRandomElement(RandomSource.create()).orElseThrow();
+        List<String> blacklist = Config.blacklistedOres.get();
+        List<Holder<Block>> allowedOres = oreTag.stream()
+                .filter(ore -> {
+                    ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(ore.value());
+                    return !blacklist.contains(blockId.toString());
+                })
+                .toList();
+
+        if (allowedOres.isEmpty()) {
+            throw new IllegalStateException("No ores available to generate!");
+        }
+
+        RandomSource randomSource = RandomSource.create();
+        Holder<Block> randomBlockHolder = allowedOres.get(randomSource.nextInt(allowedOres.size()));
         Block randomBlock = randomBlockHolder.value();
+
         return new ItemStack(randomBlock.asItem());
     }
+
+
+
+
 }
