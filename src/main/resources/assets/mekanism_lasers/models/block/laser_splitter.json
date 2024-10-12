@@ -1,0 +1,13 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "mekanism_lasers:block/splitter/full",
+    "east": "mekanism_lasers:block/splitter/empty",
+    "north": "mekanism_lasers:block/splitter/empty",
+    "south": "mekanism_lasers:block/splitter/empty",
+    "up": "mekanism_lasers:block/splitter/full",
+    "west": "mekanism_lasers:block/splitter/empty",
+
+    "particle": "#up"
+  }
+}

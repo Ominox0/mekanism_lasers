@@ -19,7 +19,7 @@ public class LaserStopperBlockEntity extends TileEntityMekanism implements ILase
     @Nullable
     private BlockState currentBlockState;
 
-    public LaserStopperBlockEntity(BlockPos pos, BlockState state) {
+    public LaserStopperBlockEntity(BlockPos pos, @Nullable BlockState state) {
         super(BlockRegistry.LASER_STOPPER, pos, state);
         currentBlockState = state;
     }

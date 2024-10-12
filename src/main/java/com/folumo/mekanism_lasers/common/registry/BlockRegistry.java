@@ -28,6 +28,9 @@ public class BlockRegistry {
     public static final BlockRegistryObject<LaserStopper, LaserStopperBlockItem> LASER_STOPPER = BLOCKS.register("laser_stopper",
             () -> new LaserStopper(BlockTypeRegistry.LASER_STOPPER), LaserStopperBlockItem::new);
 
+    public static final BlockRegistryObject<LaserSplitter, LaserSplitterBlockItem> LASER_SPLITTER = BLOCKS.register("laser_splitter",
+            () -> new LaserSplitter(BlockTypeRegistry.LASER_SPLITTER), LaserSplitterBlockItem::new);
+
     public static final BlockRegistryObject<Laser, LaserBlockItem> BASIC_LASER = registerLaser(BlockTypeRegistry.BASIC_LASER);
     public static final BlockRegistryObject<Laser, LaserBlockItem> ADVANCED_LASER = registerLaser(BlockTypeRegistry.ADVANCED_LASER);
     public static final BlockRegistryObject<Laser, LaserBlockItem> ELITE_LASER = registerLaser(BlockTypeRegistry.ELITE_LASER);

@@ -23,6 +23,13 @@ public class BlockEntityTypeRegistry {
                     .withSimple(Capabilities.CONFIGURABLE)
                     .build();
 
+    public static final TileEntityTypeRegistryObject<LaserSplitterBlockEntity> LASER_SPLITTER =
+            BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.LASER_SPLITTER, LaserSplitterBlockEntity::new)
+                    .serverTicker(TileEntityMekanism::tickServer)
+                    .withSimple(Capabilities.LASER_RECEPTOR)
+                    .withSimple(Capabilities.CONFIGURABLE)
+                    .build();
+
     public static final TileEntityTypeRegistryObject<LaserBlockEntity> BASIC_LASER = createLaser(BlockRegistry.BASIC_LASER);
     public static final TileEntityTypeRegistryObject<LaserBlockEntity> ADVANCED_LASER = createLaser(BlockRegistry.ADVANCED_LASER);
     public static final TileEntityTypeRegistryObject<LaserBlockEntity> ELITE_LASER = createLaser(BlockRegistry.ELITE_LASER);

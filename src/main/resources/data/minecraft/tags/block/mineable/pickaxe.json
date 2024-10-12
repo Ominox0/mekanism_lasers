@@ -1,6 +1,7 @@
 {
   "values":[
     "mekanism_lasers:laser_stopper",
+    "mekanism_lasers:laser_splitter",
 
     "mekanism_lasers:basic_laser",
     "mekanism_lasers:advanced_laser",

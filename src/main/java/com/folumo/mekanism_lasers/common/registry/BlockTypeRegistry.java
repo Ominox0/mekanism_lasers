@@ -21,6 +21,11 @@ public class BlockTypeRegistry {
             .withCustomShape(LASER_STOPPER_SHAPE)
             .without(AttributeParticleFX.class, AttributeStateFacing.class, Attributes.AttributeRedstone.class)
             .build();
+    public static final BlockTypeTile<LaserSplitterBlockEntity> LASER_SPLITTER = BlockTypeTile.BlockTileBuilder.createBlock(() -> BlockEntityTypeRegistry.LASER_SPLITTER, MekanismLasersLang.DESCRIPTION_LASER_SPLITTER)
+            .withEnergyConfig(() -> LaserSplitterBlockEntity.getMaxEnergy() / 2, LaserSplitterBlockEntity::getMaxEnergy)
+            .without(AttributeParticleFX.class, Attributes.AttributeRedstone.class)
+            .with(Attributes.ACTIVE, new AttributeStateFacing(BlockStateProperties.FACING, AttributeStateFacing.FacePlacementType.SELECTED_FACE))
+            .build();
 
     public static final BlockTypeTile<LaserBlockEntity> BASIC_LASER = createLaser(LaserTier.BASIC, () -> BlockEntityTypeRegistry.BASIC_LASER);
     public static final BlockTypeTile<LaserBlockEntity> ADVANCED_LASER = createLaser(LaserTier.ADVANCED, () -> BlockEntityTypeRegistry.ADVANCED_LASER);
