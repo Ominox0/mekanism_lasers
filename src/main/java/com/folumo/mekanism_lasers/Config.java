@@ -11,7 +11,7 @@ public class Config
     public static final ModConfigSpec.IntValue oreGeneratorCooldown;
     public static final ModConfigSpec.LongValue oreGeneratorFabricationCost;
     public static final ModConfigSpec.IntValue oreGeneratorNumberOfOres;
-    public static final ModConfigSpec.ConfigValue<List<String>> blacklistedOres;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> blacklistedOres;
 
 
     static  {
@@ -22,7 +22,7 @@ public class Config
         oreGeneratorNumberOfOres = BUILDER.comment("How much ores do you get from one cycle").defineInRange("oreGeneratorNumberOfOres", 1, 1, Integer.MAX_VALUE);
 
         blacklistedOres = BUILDER.comment("List of ores to blacklist from generation")
-                .define("blacklistedOres", List.of(
+                .defineListAllowEmpty("blacklistedOres", List.of(
                         "justdirethings:raw_ferricore_ore",
                         "justdirethings:raw_blazegold_ore",
                         "justdirethings:raw_celestigem_ore",
@@ -31,7 +31,7 @@ public class Config
                         "justdirethings:raw_coal_t2_ore",
                         "justdirethings:raw_coal_t3_ore",
                         "justdirethings:raw_coal_t4_ore"
-                ));
+                ), () -> "", o -> o instanceof String);
 
         BUILDER.pop();
         SPEC = BUILDER.build();
