@@ -5,6 +5,10 @@ import com.folumo.mekanism_lasers.common.multiblock.validator.energyStorageMulti
 import com.folumo.mekanism_lasers.common.registry.*;
 import com.mojang.logging.LogUtils;
 import mekanism.common.lib.multiblock.MultiblockManager;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import mekanism.common.lib.multiblock.MultiblockCache;
@@ -21,6 +25,7 @@ public class Mekanism_lasers {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public static final MultiblockManager<energyStorageMultiblockData> energyStorage = new MultiblockManager<>("energyStorage", MultiblockCache::new, energyStorageMultiblockValidator::new);
+    public static final TagKey<Block> ORE_BLACKLIST = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(MOD_ID, "ore_blacklist"));
 
     public Mekanism_lasers(IEventBus modEventBus, ModContainer modContainer){
         BlockRegistry.BLOCKS.register(modEventBus);
