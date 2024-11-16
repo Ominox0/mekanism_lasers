@@ -1,0 +1,44 @@
+{
+  "block.mekanism_lasers.laser_stopper": "Остановщик лазера",
+  "block.mekanism_lasers.laser_splitter": "Разделитель лазера",
+
+  "block.mekanism_lasers.basic_laser": "Базовый лазер",
+  "block.mekanism_lasers.basic_toggleable_laser": "Базовый переключаемый лазер",
+
+  "block.mekanism_lasers.advanced_laser": "Продвинутый лазер",
+  "block.mekanism_lasers.advanced_toggleable_laser": "Продвинутый переключаемый лазер",
+
+  "block.mekanism_lasers.elite_laser": "Элитный лазер",
+  "block.mekanism_lasers.elite_toggleable_laser": "Элитный переключаемый лазер",
+
+  "block.mekanism_lasers.ultimate_laser": "Совершенный лазер",
+  "block.mekanism_lasers.ultimate_toggleable_laser": "Совершенный переключаемый лазер",
+
+  "block.mekanism_lasers.creative_laser": "Творческий лазер",
+  "block.mekanism_lasers.creative_toggleable_laser": "Творческий переключаемый лазер",
+
+  "block.mekanism_lasers.energy_storage_casing": "Корпус энергохранилища",
+  "block.mekanism_lasers.energy_storage_port": "Порт энергохранилища",
+  "block.mekanism_lasers.energy_storage_cell": "Ячейка энергохранилища",
+
+  "block.mekanism_lasers.ore_generator": "Генератор руды",
+  "block.mekanism_lasers.interface_block": "Блок интерфейса",
+
+  "item.mekanism_lasers.remote_control": "Пульт управления",
+
+  "container.mekanism_lasers.ore_generator": "Генератор руды",
+  "container.mekanism_lasers.interface_block": "Интерфейс",
+
+  "description.mekanism.laser_stopper": "Блок, который может принимать форму любого блока и при этом блокировать лазеры",
+  "description.mekanism.laser_splitter": "Разделяет лазер на два луча",
+  "description.mekanism.laser": "Излучатель высококонцентрированного света :D",
+  "description.mekanism.laser_toggleable": "Высококонцентрированный свет; но его можно включать/выключать :D",
+  "description.mekanism.ore_generator": "Использует свет для конвертации энергии в руды",
+  "description.mekanism.interface_block": "Интерфейс с переключаемыми лазерами путём размещения пульта управления",
+
+  "es.port.mode": "",
+
+  "item_group.mekanism_lasers": "Mekanism: Лазеры",
+
+  "gui.ore_generator.energy_per_ore": "Энергия, используемая на одну произведённую руду "
+}
