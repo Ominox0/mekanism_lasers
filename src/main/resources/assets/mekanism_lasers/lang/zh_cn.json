@@ -38,7 +38,7 @@
 
   "es.port.mode": "",
 
-  "item_group.mekanism_lasers": "通用机械：激光",
+  "item_group.mekanism_lasers": "通用机械激光",
 
   "gui.ore_generator.energy_per_ore": "每生产一枚矿石所消耗的能量"
 }
