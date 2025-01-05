@@ -1,6 +1,6 @@
 {
-  "block.mekanism_lasers.laser_stopper": "激光挡块",
-  "block.mekanism_lasers.laser_splitter": "激光分光器",
+  "block.mekanism_lasers.laser_stopper": "激光阻断器",
+  "block.mekanism_lasers.laser_splitter": "激光分束器",
 
   "block.mekanism_lasers.basic_laser": "基础激光",
   "block.mekanism_lasers.basic_toggleable_laser": "基础可切换激光",
@@ -24,16 +24,16 @@
   "block.mekanism_lasers.ore_generator": "矿石生成器",
   "block.mekanism_lasers.interface_block": "接口方块",
 
-  "item.mekanism_lasers.remote_control": "遥控",
+  "item.mekanism_lasers.remote_control": "遥控器",
 
   "container.mekanism_lasers.ore_generator": "矿石生成器",
   "container.mekanism_lasers.interface_block": "接口方块",
 
-  "description.mekanism.laser_stopper": "可以变成任何形状的方块，并且仍能阻挡激光",
+  "description.mekanism.laser_stopper": "可以变成任何方块的形状，并且仍然能够阻断激光",
   "description.mekanism.laser_splitter": "将激光一分为二",
   "description.mekanism.laser": "高度集中的光线 :D",
   "description.mekanism.laser_toggleable": "高度集中的光线；但可以打开/关闭 :D",
-  "description.mekanism.ore_generator": "利用光将能量转化为矿石",
+  "description.mekanism.ore_generator": "利用激光将能量转化为矿石",
   "description.mekanism.interface_block": "通过放置遥控器与可切换激光进行交互",
 
   "es.port.mode": "",
