@@ -1,0 +1,44 @@
+{
+  "block.mekanism_lasers.laser_stopper": "レーザーストッパー",
+  "block.mekanism_lasers.laser_splitter": "レーザースプリッター",
+
+  "block.mekanism_lasers.basic_laser": "基本レーザー",
+  "block.mekanism_lasers.basic_toggleable_laser": "切替可能な基本レーザー",
+
+  "block.mekanism_lasers.advanced_laser": "発展レーザー",
+  "block.mekanism_lasers.advanced_toggleable_laser": "切替可能な発展レーザー",
+
+  "block.mekanism_lasers.elite_laser": "精鋭レーザー",
+  "block.mekanism_lasers.elite_toggleable_laser": "切替可能な精鋭レーザー",
+
+  "block.mekanism_lasers.ultimate_laser": "究極レーザー",
+  "block.mekanism_lasers.ultimate_toggleable_laser": "切替可能な究極レーザー",
+
+  "block.mekanism_lasers.creative_laser": "クリエイティブレーザー",
+  "block.mekanism_lasers.creative_toggleable_laser": "切替可能なクリエイティブレーザー",
+
+  "block.mekanism_lasers.energy_storage_casing": "エネルギー貯蓄筐体",
+  "block.mekanism_lasers.energy_storage_port": "エネルギー貯蓄ポート",
+  "block.mekanism_lasers.energy_storage_cell": "エネルギー貯蓄セル",
+
+  "block.mekanism_lasers.ore_generator": "鉱石生成機",
+  "block.mekanism_lasers.interface_block": "インターフェースブロック",
+
+  "item.mekanism_lasers.remote_control": "無線操作機",
+
+  "container.mekanism_lasers.ore_generator": "鉱石生成機",
+  "container.mekanism_lasers.interface_block": "Interface Block",
+
+  "description.mekanism.laser_stopper": "任意のブロックの形に偽装できるレーザーをブロック可能なブロック",
+  "description.mekanism.laser_splitter": "レーザー光を二つに分割します",
+  "description.mekanism.laser": "高濃度の光 :D",
+  "description.mekanism.laser_toggleable": "高濃度な光、ただしオンオフを切り替え可能 :D",
+  "description.mekanism.ore_generator": "非常に強力な光線を使用してエネルギーを鉱石に変換します。",
+  "description.mekanism.interface_block": "リモコンの配置による切替可能なレーザーとのインターフェース",
+
+  "es.port.mode": "",
+
+  "item_group.mekanism_lasers": "Mekanism Lasers",
+
+  "gui.ore_generator.energy_per_ore": "生成された鉱石あたりの使用エネルギー "
+}
