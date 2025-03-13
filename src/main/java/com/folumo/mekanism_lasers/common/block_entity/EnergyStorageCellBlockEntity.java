@@ -1,19 +1,20 @@
 package com.folumo.mekanism_lasers.common.block_entity;
 
 import mekanism.api.IContentsListener;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.common.capabilities.energy.MachineEnergyContainer;
 import mekanism.common.capabilities.holder.energy.EnergyContainerHelper;
 import mekanism.common.capabilities.holder.energy.IEnergyContainerHolder;
 import mekanism.common.tile.prefab.TileEntityInternalMultiblock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class EnergyStorageCellBlockEntity extends TileEntityInternalMultiblock {
     private MachineEnergyContainer<EnergyStorageCellBlockEntity> energyContainer;
 
-    public EnergyStorageCellBlockEntity(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public EnergyStorageCellBlockEntity(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
     }
 

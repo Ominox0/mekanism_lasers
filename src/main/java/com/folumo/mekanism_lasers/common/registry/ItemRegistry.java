@@ -26,7 +26,7 @@ public class ItemRegistry {
         public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Mekanism_lasers.MOD_ID);
 
         public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MEKANISM_LASERS_ITEM_TAB = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
-                .icon(() -> BlockRegistry.ULTIMATE_LASER.getItemStack().getItem().getDefaultInstance())
+                .icon(() -> BlockRegistry.ULTIMATE_LASER.getItemHolder().get().getDefaultInstance())
                 .title(Component.translatable("item_group." + Mekanism_lasers.MOD_ID))
                 .displayItems((displayParameters, output) -> {
                     ITEMS.getEntries().forEach(itemRegistryObject -> output.accept(itemRegistryObject.get()));

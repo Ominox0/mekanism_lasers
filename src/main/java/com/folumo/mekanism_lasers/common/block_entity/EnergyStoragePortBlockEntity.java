@@ -3,7 +3,6 @@ package com.folumo.mekanism_lasers.common.block_entity;
 import com.folumo.mekanism_lasers.common.multiblock.data.energyStorageMultiblockData;
 import mekanism.api.IContentsListener;
 import mekanism.api.lasers.ILaserReceptor;
-import mekanism.api.providers.IBlockProvider;
 import mekanism.api.text.EnumColor;
 import mekanism.common.MekanismLang;
 import mekanism.common.attachments.containers.ContainerType;
@@ -14,9 +13,11 @@ import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.util.text.BooleanStateDisplay;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +30,7 @@ public class EnergyStoragePortBlockEntity extends EnergyStorageCasingBlockEntity
 
     private final Map<Direction, BlockEnergyCapabilityCache> energyCapabilityCaches = new EnumMap<>(Direction.class);
 
-    public EnergyStoragePortBlockEntity(IBlockProvider blockProvider, BlockPos pos, BlockState state) {
+    public EnergyStoragePortBlockEntity(Holder<Block> blockProvider, BlockPos pos, BlockState state) {
         super(blockProvider, pos, state);
         delaySupplier = NO_DELAY;
     }
