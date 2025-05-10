@@ -27,6 +27,12 @@ public class BlockTypeRegistry {
             .with(Attributes.ACTIVE, new AttributeStateFacing(BlockStateProperties.FACING, AttributeStateFacing.FacePlacementType.SELECTED_FACE))
             .build();
 
+    public static final BlockTypeTile<EnergyTransformerBlockEntity> ENERGY_TRANSFORMER = BlockTypeTile.BlockTileBuilder.createBlock(() -> BlockEntityTypeRegistry.ENERGY_TRANSFORMER, MekanismLasersLang.ENERGY_TRANSFORMER)
+            .withEnergyConfig(() -> 8_000_000_000L, () -> 8_000_000_000L)
+            .without(AttributeParticleFX.class, Attributes.AttributeRedstone.class)
+            .with(Attributes.ACTIVE, new AttributeStateFacing(BlockStateProperties.FACING, AttributeStateFacing.FacePlacementType.SELECTED_FACE))
+            .build();
+
     public static final BlockTypeTile<LaserBlockEntity> BASIC_LASER = createLaser(LaserTier.BASIC, () -> BlockEntityTypeRegistry.BASIC_LASER);
     public static final BlockTypeTile<LaserBlockEntity> ADVANCED_LASER = createLaser(LaserTier.ADVANCED, () -> BlockEntityTypeRegistry.ADVANCED_LASER);
     public static final BlockTypeTile<LaserBlockEntity> ELITE_LASER = createLaser(LaserTier.ELITE, () -> BlockEntityTypeRegistry.ELITE_LASER);

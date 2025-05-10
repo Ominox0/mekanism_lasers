@@ -31,11 +31,15 @@ public class BlockRegistry {
     public static final BlockRegistryObject<LaserSplitter, LaserSplitterBlockItem> LASER_SPLITTER = BLOCKS.register("laser_splitter",
             () -> new LaserSplitter(BlockTypeRegistry.LASER_SPLITTER), LaserSplitterBlockItem::new);
 
+    public static final BlockRegistryObject<EnergyTransformer, EnergyTransformerBlockItem> ENERGY_TRANSFORMER = BLOCKS.register("energy_transformer",
+            () -> new EnergyTransformer(BlockTypeRegistry.ENERGY_TRANSFORMER), EnergyTransformerBlockItem::new);
+
     public static final BlockRegistryObject<Laser, LaserBlockItem> BASIC_LASER = registerLaser(BlockTypeRegistry.BASIC_LASER);
     public static final BlockRegistryObject<Laser, LaserBlockItem> ADVANCED_LASER = registerLaser(BlockTypeRegistry.ADVANCED_LASER);
     public static final BlockRegistryObject<Laser, LaserBlockItem> ELITE_LASER = registerLaser(BlockTypeRegistry.ELITE_LASER);
     public static final BlockRegistryObject<Laser, LaserBlockItem> ULTIMATE_LASER = registerLaser(BlockTypeRegistry.ULTIMATE_LASER);
     public static final BlockRegistryObject<Laser, LaserBlockItem> CREATIVE_LASER = registerLaser(BlockTypeRegistry.CREATIVE_LASER);
+
     private static BlockRegistryObject<Laser, LaserBlockItem> registerLaser(BlockTypeTile<LaserBlockEntity> type) {
         return registerTieredBlock(type, "_laser", () -> new Laser(type), LaserBlockItem::new);
     }

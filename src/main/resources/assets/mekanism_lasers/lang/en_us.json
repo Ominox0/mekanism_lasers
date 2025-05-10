@@ -1,6 +1,7 @@
 {
   "block.mekanism_lasers.laser_stopper": "Laser Stopper",
   "block.mekanism_lasers.laser_splitter": "Laser Splitter",
+  "block.mekanism_lasers.energy_transformer": "Energy Transformer",
 
   "block.mekanism_lasers.basic_laser": "Basic Laser",
   "block.mekanism_lasers.basic_toggleable_laser": "Basic Toggleable Laser",
@@ -35,6 +36,7 @@
   "description.mekanism.laser_toggleable": "Highly concentrated light; but it can be switched on/off :D",
   "description.mekanism.ore_generator": "Uses light to convert energy to ores",
   "description.mekanism.interface_block": "Interface with toggleable lasers by placing remote control",
+  "description.mekanism.energy_transformer": "Converts laser to energy",
 
   "es.port.mode": "",
 

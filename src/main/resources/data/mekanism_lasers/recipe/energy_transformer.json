@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "I I",
+    "RCR"
+  ],
+  "key": {
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "mekanism_lasers:energy_transformer",
+    "count": 1
+  }
+}
