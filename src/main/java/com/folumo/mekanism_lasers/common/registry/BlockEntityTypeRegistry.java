@@ -30,6 +30,13 @@ public class BlockEntityTypeRegistry {
                     .withSimple(Capabilities.CONFIGURABLE)
                     .build();
 
+    public static final TileEntityTypeRegistryObject<EnergyTransformerBlockEntity> ENERGY_TRANSFORMER =
+            BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.ENERGY_TRANSFORMER, EnergyTransformerBlockEntity::new)
+                    .serverTicker(TileEntityMekanism::tickServer)
+                    .withSimple(Capabilities.LASER_RECEPTOR)
+                    .withSimple(Capabilities.CONFIGURABLE)
+                    .build();
+
     public static final TileEntityTypeRegistryObject<LaserBlockEntity> BASIC_LASER = createLaser(BlockRegistry.BASIC_LASER);
     public static final TileEntityTypeRegistryObject<LaserBlockEntity> ADVANCED_LASER = createLaser(BlockRegistry.ADVANCED_LASER);
     public static final TileEntityTypeRegistryObject<LaserBlockEntity> ELITE_LASER = createLaser(BlockRegistry.ELITE_LASER);
