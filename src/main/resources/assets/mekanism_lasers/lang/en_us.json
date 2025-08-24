@@ -26,6 +26,7 @@
   "block.mekanism_lasers.interface_block": "Interface Block",
 
   "item.mekanism_lasers.remote_control": "Remote Control",
+  "item.mekanism_lasers.laser_configurator":"Laser Configurator",
 
   "container.mekanism_lasers.ore_generator": "Ore Generator",
   "container.mekanism_lasers.interface_block": "Interface Block",
