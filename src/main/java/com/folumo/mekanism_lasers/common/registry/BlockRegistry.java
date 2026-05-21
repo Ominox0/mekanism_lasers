@@ -15,24 +15,39 @@ import mekanism.common.content.blocktype.BlockType;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
+import mekanism.common.resource.BlockResourceInfo;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 
 public class BlockRegistry {
 
     public static final BlockDeferredRegister BLOCKS = new BlockDeferredRegister(Mekanism_lasers.MOD_ID);
 
-    public static final BlockRegistryObject<LaserStopper, LaserStopperBlockItem> LASER_STOPPER = BLOCKS.register("laser_stopper",
-            () -> new LaserStopper(BlockTypeRegistry.LASER_STOPPER), LaserStopperBlockItem::new);
+    public static final BlockRegistryObject<Block, BlockItem> ENERGIZED_FENCE = BLOCKS.register("energized_fence",
+            () -> new Block(BlockBehaviour.Properties.of().strength(3.5F, 9).mapColor(BlockResourceInfo.STEEL.getMapColor())){
+                @Override
+                protected VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
+                    return BlockShapes.box(4, 0, 4, 12, 16, 12);
+                }
+            }, BlockItem::new);
 
-    public static final BlockRegistryObject<LaserSplitter, LaserSplitterBlockItem> LASER_SPLITTER = BLOCKS.register("laser_splitter",
-            () -> new LaserSplitter(BlockTypeRegistry.LASER_SPLITTER), LaserSplitterBlockItem::new);
+    public static final BlockRegistryObject<LaserStopper, BlockItem> LASER_STOPPER = BLOCKS.register("laser_stopper",
+            () -> new LaserStopper(BlockTypeRegistry.LASER_STOPPER), BlockItem::new);
 
-    public static final BlockRegistryObject<EnergyTransformer, EnergyTransformerBlockItem> ENERGY_TRANSFORMER = BLOCKS.register("energy_transformer",
-            () -> new EnergyTransformer(BlockTypeRegistry.ENERGY_TRANSFORMER), EnergyTransformerBlockItem::new);
+    public static final BlockRegistryObject<LaserSplitter, BlockItem> LASER_SPLITTER = BLOCKS.register("laser_splitter",
+            () -> new LaserSplitter(BlockTypeRegistry.LASER_SPLITTER), BlockItem::new);
+
+    public static final BlockRegistryObject<EnergyTransformer, BlockItem> ENERGY_TRANSFORMER = BLOCKS.register("energy_transformer",
+            () -> new EnergyTransformer(BlockTypeRegistry.ENERGY_TRANSFORMER), BlockItem::new);
 
     public static final BlockRegistryObject<Laser, LaserBlockItem> BASIC_LASER = registerLaser(BlockTypeRegistry.BASIC_LASER);
     public static final BlockRegistryObject<Laser, LaserBlockItem> ADVANCED_LASER = registerLaser(BlockTypeRegistry.ADVANCED_LASER);
@@ -54,13 +69,15 @@ public class BlockRegistry {
         return registerTieredBlock(type, "_toggleable_laser", () -> new ToggleableLaser(type), ToggleableLaserBlockItem::new);
     }
 
-    public static final BlockRegistryObject<OreGenerator, OreGeneratorBlockItem> ORE_GENERATOR = BLOCKS.register("ore_generator",
-            () -> new OreGenerator(BlockTypeRegistry.ORE_GENERATOR), OreGeneratorBlockItem::new);
+    public static final BlockRegistryObject<OreGenerator, BlockItem> ORE_GENERATOR = BLOCKS.register("ore_generator",
+            () -> new OreGenerator(BlockTypeRegistry.ORE_GENERATOR), BlockItem::new);
 
 
-    public static final BlockRegistryObject<InterfaceBlock, InterfaceBlockItem> INTERFACE_BLOCK = BLOCKS.register("interface_block",
-            () -> new InterfaceBlock(BlockTypeRegistry.INTERFACE_BLOCK), InterfaceBlockItem::new);
+    public static final BlockRegistryObject<InterfaceBlock, BlockItem> INTERFACE_BLOCK = BLOCKS.register("interface_block",
+            () -> new InterfaceBlock(BlockTypeRegistry.INTERFACE_BLOCK), BlockItem::new);
 
+    public static final BlockRegistryObject<ODECM_Block, BlockItem> ODECM = BLOCKS.register("odecm",
+            () -> new ODECM_Block(BlockTypeRegistry.ODECM), BlockItem::new);
 
     public static final BlockRegistryObject<BlockTile<EnergyStorageCasingBlockEntity, BlockTypeTile<EnergyStorageCasingBlockEntity>>, BlockItem> ENERGY_STORAGE_CASING =
             BLOCKS.register("energy_storage_casing", () -> new BlockTile<>(BlockTypeRegistry.ENERGY_STORAGE_CASING, properties -> properties.mapColor(MapColor.COLOR_LIGHT_GRAY)), BlockItem::new);

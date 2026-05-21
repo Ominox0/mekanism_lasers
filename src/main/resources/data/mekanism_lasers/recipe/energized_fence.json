@@ -1,26 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "SSS",
-    "I#I",
-    "HHH"
+    "HSH",
+    "H#H",
+    "HSH"
   ],
   "key": {
     "#": {
-      "item": "mekanism:digital_miner"
+      "item": "mekanism:energy_tablet"
     },
     "S": {
       "tag": "c:ingots/steel"
-    },
-    "I": {
-      "item": "mekanism_lasers:basic_laser"
     },
     "H": {
       "item": "mekanism:hdpe_sheet"
     }
   },
   "result": {
-    "id": "mekanism_lasers:ore_generator",
-    "count": 1
+    "id": "mekanism_lasers:energized_fence",
+    "count": 4
   }
 }

@@ -39,7 +39,7 @@ public class ToggleableLaserBlockEntity extends LaserBlockEntity {
             this.setActive(false);
             return 0L;
         }else {
-            return tier.getEnergyUsage();
+            return tier.getEnergyUsage().getAsLong();
 
         }
     }

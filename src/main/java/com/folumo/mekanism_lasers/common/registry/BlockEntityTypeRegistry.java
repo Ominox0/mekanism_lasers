@@ -23,6 +23,12 @@ public class BlockEntityTypeRegistry {
                     .withSimple(Capabilities.CONFIGURABLE)
                     .build();
 
+    public static final TileEntityTypeRegistryObject<ODECM_BlockEntity> ODECM =
+            BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.ODECM, ODECM_BlockEntity::new)
+                    .serverTicker(TileEntityMekanism::tickServer)
+                    .withSimple(Capabilities.CONFIGURABLE)
+                    .build();
+
     public static final TileEntityTypeRegistryObject<LaserSplitterBlockEntity> LASER_SPLITTER =
             BLOCK_ENTITY_TYPES.mekBuilder(BlockRegistry.LASER_SPLITTER, LaserSplitterBlockEntity::new)
                     .serverTicker(TileEntityMekanism::tickServer)

@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BlockShapes {
-    private static VoxelShape box(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+    public static VoxelShape box(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
         return Block.box(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
@@ -14,6 +14,8 @@ public class BlockShapes {
 
     public static VoxelShape[] ORE_GENERATOR_SHAPE = new VoxelShape[EnumUtils.DIRECTIONS.length];
     public static VoxelShape[] ENERGY_STORAGE_CELL_SHAPE = new VoxelShape[EnumUtils.DIRECTIONS.length];
+
+    public static VoxelShape[] ENERGIZED_FENCE = new VoxelShape[EnumUtils.DIRECTIONS.length];
 
 
     static {
@@ -70,6 +72,10 @@ public class BlockShapes {
                 box(2, 0, 4, 4, 16, 14),
                 box(1, 0, 8, 2, 16, 10),
                 box(14, 0, 10, 15, 16, 12)
+        ), ENERGY_STORAGE_CELL_SHAPE, true, true);
+
+        VoxelShapeUtils.setShape(VoxelShapeUtils.combine(
+                box(4, 0, 4, 12, 16, 12)
         ), ENERGY_STORAGE_CELL_SHAPE, true, true);
 
     }

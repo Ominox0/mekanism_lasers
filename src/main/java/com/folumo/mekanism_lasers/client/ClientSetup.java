@@ -6,6 +6,7 @@ import com.folumo.mekanism_lasers.client.gui.OreGeneratorScreen;
 import com.folumo.mekanism_lasers.client.gui.InterfaceBlockScreen;
 import com.folumo.mekanism_lasers.client.gui.LaserConfiguratorItemScreen;
 import com.folumo.mekanism_lasers.client.renderer.LaserStopperRenderer;
+import com.folumo.mekanism_lasers.client.renderer.ODECM_Renderer;
 import com.folumo.mekanism_lasers.common.registry.BlockEntityTypeRegistry;
 import com.folumo.mekanism_lasers.common.registry.ContainerTypeRegistry;
 import mekanism.client.ClientRegistrationUtil;
@@ -16,12 +17,13 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 
 
-@EventBusSubscriber(modid = Mekanism_lasers.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Mekanism_lasers.MOD_ID, value = Dist.CLIENT)
 public class ClientSetup {
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(BlockEntityTypeRegistry.LASER_STOPPER.get(), LaserStopperRenderer::new);
+        event.registerBlockEntityRenderer(BlockEntityTypeRegistry.ODECM.get(), ODECM_Renderer::new);
     }
 
     @SubscribeEvent

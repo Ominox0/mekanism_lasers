@@ -21,6 +21,12 @@ public class BlockTypeRegistry {
             .withCustomShape(LASER_STOPPER_SHAPE)
             .without(AttributeParticleFX.class, AttributeStateFacing.class, Attributes.AttributeRedstone.class)
             .build();
+
+    public static final BlockTypeTile<ODECM_BlockEntity> ODECM = BlockTypeTile.BlockTileBuilder.createBlock(() -> BlockEntityTypeRegistry.ODECM, MekanismLasersLang.DESCRIPTION_ODECM)
+            .withCustomShape(LASER_STOPPER_SHAPE)
+            .without(AttributeParticleFX.class, AttributeStateFacing.class, Attributes.AttributeRedstone.class)
+            .build();
+
     public static final BlockTypeTile<LaserSplitterBlockEntity> LASER_SPLITTER = BlockTypeTile.BlockTileBuilder.createBlock(() -> BlockEntityTypeRegistry.LASER_SPLITTER, MekanismLasersLang.DESCRIPTION_LASER_SPLITTER)
             .withEnergyConfig(() -> LaserSplitterBlockEntity.getMaxEnergy() / 2, LaserSplitterBlockEntity::getMaxEnergy)
             .without(AttributeParticleFX.class, Attributes.AttributeRedstone.class)
@@ -43,7 +49,7 @@ public class BlockTypeRegistry {
         return BlockTypeTile.BlockTileBuilder
                 .createBlock(tile, MekanismLasersLang.DESCRIPTION_LASER)
                 .with(new AttributeTier<>(tier), new AttributeStateFacing(BlockStateProperties.FACING, AttributeStateFacing.FacePlacementType.SELECTED_FACE), Attributes.SECURITY)
-                .withEnergyConfig(tier::getEnergyUsage, tier::getEnergyCap)
+                .withEnergyConfig(tier.getEnergyUsage(), tier.getEnergyCap())
                 .withCustomShape(BlockShapes.LASER)
                 .withSound(MekanismSounds.LASER)
                 .build();
@@ -59,7 +65,7 @@ public class BlockTypeRegistry {
         return BlockTypeTile.BlockTileBuilder
                 .createBlock(tile, MekanismLasersLang.DESCRIPTION_LASER_TOGGLEABLE)
                 .with(new AttributeTier<>(tier), new AttributeStateFacing(BlockStateProperties.FACING, AttributeStateFacing.FacePlacementType.SELECTED_FACE), Attributes.SECURITY)
-                .withEnergyConfig(tier::getEnergyUsage, tier::getEnergyCap)
+                .withEnergyConfig(tier.getEnergyUsage(), tier.getEnergyCap())
                 .withCustomShape(BlockShapes.LASER)
                 .withSound(MekanismSounds.LASER)
                 .build();

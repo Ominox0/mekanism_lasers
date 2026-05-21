@@ -10,20 +10,5 @@ public class LaserConfiguratorContainer extends MekanismItemContainer {
 
     public LaserConfiguratorContainer(int id, Inventory inv, InteractionHand hand, ItemStack stack) {
         super(ContainerTypeRegistry.LASER_CONFIGURATOR, id, inv, hand, stack);
-
-        //itemInventory = isRemote ? new ClientSidePersonalStorageInventory() : PersonalStorageManager.getInventoryFor(stack).orElseThrow(() -> new IllegalStateException("Inventory not available"));
     }
-
-    //@Override
-    //protected void addSlots() {
-    //    super.addSlots();
-    //    //Get all the inventory slots the tile has
-    //    List<IInventorySlot> inventorySlots = itemInventory.getInventorySlots(null);
-    //    for (IInventorySlot inventorySlot : inventorySlots) {
-    //        Slot containerSlot = inventorySlot.createContainerSlot();
-    //        if (containerSlot != null) {
-    //            addSlot(containerSlot);
-    //        }
-    //    }
-    //}
 }

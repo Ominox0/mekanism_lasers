@@ -65,7 +65,7 @@ public class LaserBlockEntity extends TileEntityLaserReceptor {
 
     @Override
     protected long toFire(){
-        return tier.getEnergyUsage();
+        return tier.getEnergyUsage().getAsLong();
     }
     @Override
     public @NotNull Component getName() {

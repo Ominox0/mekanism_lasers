@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "O"
+  ],
+  "key": {
+    "O": {
+      "item": "mekanism_lasers:ore_generator"
+    }
+  },
+  "result": {
+    "id": "mekanism_lasers:odecm",
+    "count": 1
+  }
+}

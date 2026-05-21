@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
-public class LaserConfiguratorItem extends Item implements IGuiItem {
+public class LaserConfiguratorItem extends Item {
     public LaserConfiguratorItem(Properties properties) {
         super(properties);
     }
@@ -32,27 +32,22 @@ public class LaserConfiguratorItem extends Item implements IGuiItem {
     //    return builder.build();
     //}
 
-    @Override
-    public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
-        Player player = context.getPlayer();
-        Level world = context.getLevel();
+    //@Override
+    //public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
+    //    Player player = context.getPlayer();
+    //    Level world = context.getLevel();
 
 
-        if (!world.isClientSide && player != null) {
-            BlockPos pos = context.getClickedPos();
+    //    if (!world.isClientSide && player != null) {
+    //        BlockPos pos = context.getClickedPos();
 
-            BlockEntity tile = WorldUtils.getTileEntity(world, pos);
+    //        BlockEntity tile = WorldUtils.getTileEntity(world, pos);
 
-            if (tile instanceof LaserBlockEntity){
-                return ItemSecurityUtils.get().claimOrOpenGui(world, player, context.getHand(), getContainerType()::tryOpenGui).getResult();
-            }
+    //        if (tile instanceof LaserBlockEntity laserTile){
+    //            return ItemSecurityUtils.get().claimOrOpenGui(world, player, context.getHand(), laserTile::open).getResult();
+    //        }
 
-        }
-        return InteractionResult.PASS;
-    }
-
-    @Override
-    public ContainerTypeRegistryObject<?> getContainerType() {
-        return null;
-    }
+    //    }
+    //    return InteractionResult.PASS;
+    //}
 }

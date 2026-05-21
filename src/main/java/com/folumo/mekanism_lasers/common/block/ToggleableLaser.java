@@ -29,6 +29,7 @@ public class ToggleableLaser extends BlockTile.BlockTileModel<ToggleableLaserBlo
                 boolean activity = toggleableLaser.getLaserActivity();
 
                 toggleableLaser.setLaserActivity(!activity, player);
+                return InteractionResult.SUCCESS;
             }
         }
         return super.useWithoutItem(state, world, pos, player, hit);

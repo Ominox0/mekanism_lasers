@@ -1,6 +1,5 @@
 package com.folumo.mekanism_lasers.common.block;
 
-import com.folumo.mekanism_lasers.common.block_entity.LaserBlockEntity;
 import com.folumo.mekanism_lasers.common.block_entity.LaserSplitterBlockEntity;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.content.blocktype.BlockTypeTile;

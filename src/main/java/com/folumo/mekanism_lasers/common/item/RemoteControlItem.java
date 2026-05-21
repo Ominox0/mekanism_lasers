@@ -49,9 +49,12 @@ public class RemoteControlItem extends Item {
         ItemStack stack = player.getItemInHand(hand);
 
         if (!world.isClientSide) {
+            if (player.isCrouching()) {
+                return InteractionResultHolder.pass(stack);
+            }
+
             player.sendSystemMessage(Component.literal("Switching laser mode"));
             switchLaserMode(stack, world, player);
-
         }
         return InteractionResultHolder.pass(stack);
     }

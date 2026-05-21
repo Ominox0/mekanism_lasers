@@ -16,6 +16,9 @@
 
     "mekanism_lasers:ore_generator",
 
-    "mekanism_lasers:interface_block"
+    "mekanism_lasers:interface_block",
+    "mekanism_lasers:odecm",
+
+    "mekanism_lasers:energized_fence"
   ]
 }
