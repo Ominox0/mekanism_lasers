@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GRG",
+    "RBR",
+    "GRG"
+  ],
+  "key": {
+    "G": {
+      "tag": "c:glass_blocks/cheap"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "B": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "id": "mekanism_lasers:energy_storage_cell",
+    "count": 1
+  }
+}

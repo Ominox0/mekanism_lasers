@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GIG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "tag": "c:glass_blocks/cheap"
+    },
+    "I": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "result": {
+    "id": "mekanism_lasers:energy_storage_casing",
+    "count": 6
+  }
+}
