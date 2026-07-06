@@ -3,6 +3,8 @@ package com.folumo.mekanism_lasers.common.multiblock;
 import com.folumo.mekanism_lasers.common.registry.BlockRegistry;
 import mekanism.common.registries.MekanismBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -13,12 +15,12 @@ import java.util.Map;
 
 
 public class OreGeneratorBase {
-    protected OreGeneratorBase.Layer[] layers;
-    protected String name;
-    protected Map<String, Block> keys;
-    private final int indexCore;
-    private final int index;
-    private final GeneratorAbility ability;
+    public OreGeneratorBase.Layer[] layers;
+    public String name;
+    public Map<String, Block> keys;
+    public final int indexCore;
+    public final int index;
+    public final GeneratorAbility ability;
 
     public OreGeneratorBase(String name, OreGeneratorBase.Layer[] layers, Map<String, Block> keys, int indexOfCore, int index, GeneratorAbility ability){
         this.layers = layers;
@@ -43,6 +45,39 @@ public class OreGeneratorBase {
             case 3 -> new int[]{z, -x};
             default -> throw new IllegalStateException("Unexpected rotation: " + rotation);
         };
+    }
+
+    public void forceBuild(BlockPos pos, ServerLevel level, Player player){
+        if (player.isCreative()){
+            for (int y = 0; y < layers.length; y++) {
+                Layer layer = layers[y];
+
+                for (int z = 0; z < layer.layers.length; z++) {
+                    String row = layer.layers[z];
+
+                    for (int x = 0; x < row.length(); x++) {
+                        char keyChar = row.charAt(x);
+
+                        if (keyChar == ' ') continue;
+
+                        Block expected = keys.get(String.valueOf(keyChar));
+                        if (expected == null) continue;
+
+                        int center = row.length() / 2;
+
+                        int localX = x - center;
+                        int localZ = z - center;
+                        int localY = y - indexCore;
+
+                        int[] rotated = rotate(localX, localZ, 0);
+
+                        BlockPos checkPos = pos.offset(rotated[0], localY, rotated[1]);
+                        level.setBlock(checkPos, expected.defaultBlockState(), Block.UPDATE_ALL);
+
+                    }
+                }
+            }
+        }
     }
 
     public BuildCheckResult canBuild(BlockPos pos, Level level){
@@ -119,8 +154,8 @@ public class OreGeneratorBase {
     }
 
     public static class Layer{
-        protected int size;
-        protected String[] layers;
+        public int size;
+        public String[] layers;
 
         public Layer(int size, String[] layers){
             this.size = size;
@@ -250,6 +285,7 @@ public class OreGeneratorBase {
             new HashMap<>(){{
                 put("C", BlockRegistry.ODECM.get());
                 put("B", Blocks.SMOOTH_STONE_SLAB);
+                put("Y", Blocks.SMOOTH_STONE);
                 put("P", BlockRegistry.ENERGIZED_FENCE.get());
                 put("1", Blocks.IRON_BLOCK);
                 put("S", MekanismBlocks.REFINED_OBSIDIAN_BLOCK.get());

@@ -54,7 +54,7 @@ public class Config
         ultimateLaserEnergyUse = BUILDER.defineInRange("ultimateLaserEnergyUse", 1920000L, 0, Long.MAX_VALUE);
 
         ODECM_Progress = BUILDER.comment("Ticks required for ODECM cycle").defineInRange("ODECM_Progress", 200, 0, Integer.MAX_VALUE);
-        ODECM_ProgressPerTick = BUILDER.comment("Progress per tick").defineInRange("ODECM_Progress", 1, 0, Integer.MAX_VALUE);
+        ODECM_ProgressPerTick = BUILDER.comment("Progress per tick").defineInRange("ODECM_ProgressPerTick", 1, 0, Integer.MAX_VALUE);
         ODECM_TickCost = BUILDER.comment("Energy cost of one tick for ODECM").defineInRange("ODECM_TickCost", 100_000L, 0, Long.MAX_VALUE);
         ODECM_OutputAmount = BUILDER.comment("How many ores should ODECM return after a cycle").defineInRange("ODECM_OutputAmount", 1, 0, Integer.MAX_VALUE);
 

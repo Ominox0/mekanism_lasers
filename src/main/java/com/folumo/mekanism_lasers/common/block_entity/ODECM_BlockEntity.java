@@ -23,6 +23,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -197,7 +198,7 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
         return canGo;
     }
 
-    protected boolean tickFluid(OreGeneratorBase.GeneratorAbility ability, int costPerTick, boolean pastResult){
+    protected boolean tickFluid(OreGeneratorBase.GeneratorAbility ability, int costPerTick, boolean energyResult){
         boolean canGo = false;
 
         if (ability.needsWater){
@@ -208,7 +209,7 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
                 tank.fluidTank.extract(costPerTick, Action.EXECUTE, AutomationType.INTERNAL);
                 canGo = true;
             } else {
-                if (pastResult){
+                if (energyResult){
                     doExplode = true;
                 }
             }
@@ -220,7 +221,7 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
         return canGo;
     }
 
-    protected boolean tickGas(OreGeneratorBase.GeneratorAbility ability, int costPerTick){
+    protected boolean tickGas(OreGeneratorBase.GeneratorAbility ability, int costPerTick, boolean energyResult){
         boolean canGo = false;
 
         if (ability.outputsGas){
@@ -236,7 +237,9 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
                canGo = true;
 
            } else {
-               doExplode = true;
+               if (energyResult){
+                   doExplode = true;
+               }
            }
 
         } else {
@@ -259,25 +262,42 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
                         pos.getX(),
                         pos.getY(),
                         pos.getZ(),
-                        20.0F,
+                        (float) (long) Config.ODECM_Explosion.get(),
                         false,
                         Level.ExplosionInteraction.BLOCK
                 );
             }
         }
+        // Reset so we don't re-explode every tick if the block somehow survives.
+        doExplode = false;
+    }
+
+    /**
+     * Speed/cost multiplier for the current generator version. Guards against the config
+     * list being shorter than the number of generator versions (which would otherwise throw
+     * IndexOutOfBounds) and against non-positive values (which would make generation instant).
+     */
+    private float getGeneratorMultiplier() {
+        java.util.List<? extends Integer> list = Config.ODECM_Generator.get();
+        int idx = typeV.getIndex();
+        if (idx < 0 || idx >= list.size()) return 1f;
+        Integer value = list.get(idx);
+        return (value == null || value <= 0) ? 1f : value.floatValue();
     }
 
     protected void tickGenerated() {
         if (item == null) return;
         OreGeneratorBase.GeneratorAbility ability = typeV.getAbility();
 
-        float amount = Config.ODECM_Generator.get().get(typeV.getIndex());
+        float amount = getGeneratorMultiplier();
         long costPerTick = (long) (getEnergyCost(item) * amount);
 
         boolean doPower = tickPower(ability, costPerTick);
-        boolean doFluid = tickFluid(ability, (int) (costPerTick / 20), doPower);
-
-        boolean doOutputGas = tickGas(ability, (int) (costPerTick / 20));
+        long divisor = Config.ODECM_LiquidGasIO.get();
+        int fluidCost = divisor > 0 ? (int) (costPerTick / divisor) : 0;
+        int gasCost = divisor > 0 ? (int) (costPerTick / divisor) : 0;
+        boolean doFluid = tickFluid(ability, fluidCost, doPower);
+        boolean doOutputGas = tickGas(ability, gasCost, doPower);
 
         tickExplode();
 
@@ -285,7 +305,8 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
 
             progress += Config.ODECM_ProgressPerTick.getAsInt();
 
-            if (progress >= maxProgress / amount) {
+            float threshold = Math.max(1f, maxProgress / amount);
+            if (progress >= threshold) {
                 if (ability.outputsItems){
                     generateOutput();
                 }
@@ -305,18 +326,25 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
 
         ItemStack stack = new ItemStack(item.asItem(), Config.ODECM_OutputAmount.getAsInt());
 
+        int remaining = stack.getCount();
         for (mekanism.api.inventory.IInventorySlot slot : inventory) {
-            if (slot.isEmpty()) {
-                slot.setStack(stack.copy());
-                return;
-            } else if (slot.getStack().getItem() == stack.getItem()
-                    && slot.getStack().getCount() < slot.getStack().getMaxStackSize()) {
+            if (remaining <= 0) return;
 
-                slot.getStack().grow(stack.getCount());
-                return;
+            if (slot.isEmpty()) {
+                ItemStack toInsert = stack.copy();
+                toInsert.setCount(Math.min(remaining, slot.getLimit(toInsert)));
+                slot.setStack(toInsert);
+                remaining -= toInsert.getCount();
+            } else if (ItemStack.isSameItemSameComponents(slot.getStack(), stack)) {
+                int room = slot.getLimit(slot.getStack()) - slot.getStack().getCount();
+                if (room > 0) {
+                    int added = Math.min(room, remaining);
+                    slot.growStack(added, mekanism.api.Action.EXECUTE);
+                    remaining -= added;
+                }
             }
         }
-        // full → do nothing
+        // Anything left over (barrel full) is discarded.
     }
 
     @Override
@@ -344,6 +372,15 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
 
     @Override
     public InteractionResult onRightClick(Player player) {
+        if (player.isCreative()){
+            OreGeneratorBase type = this.getVType();
+
+            player.sendSystemMessage(Component.literal("Now building " + type.getName()));
+            type.forceBuild(getBlockPos(), (ServerLevel) getLevel(), player);
+            setChanged();
+
+        }
+
         return InteractionResult.PASS;
     }
 }
