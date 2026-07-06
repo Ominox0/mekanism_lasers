@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -72,8 +73,17 @@ public class OreGeneratorBase {
                         int[] rotated = rotate(localX, localZ, 0);
 
                         BlockPos checkPos = pos.offset(rotated[0], localY, rotated[1]);
-                        level.setBlock(checkPos, expected.defaultBlockState(), Block.UPDATE_ALL);
 
+                        // Never re-place the ODECM core on top of itself: doing so mid-interaction
+                        // destroys the block entity we're currently talking to (resetting its
+                        // state) and leaves the newly built structure unsynced until a relog.
+                        if (checkPos.equals(pos)) continue;
+
+                        BlockState oldState = level.getBlockState(checkPos);
+                        BlockState newState = expected.defaultBlockState();
+                        level.setBlock(checkPos, newState, Block.UPDATE_ALL);
+                        // Make sure the change is pushed to nearby clients right away.
+                        level.sendBlockUpdated(checkPos, oldState, newState, Block.UPDATE_ALL);
                     }
                 }
             }

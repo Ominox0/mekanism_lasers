@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "RCR",
+    " R "
+  ],
+  "key": {
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "C": {
+      "item": "mekanism_lasers:energy_storage_casing"
+    }
+  },
+  "result": {
+    "id": "mekanism_lasers:energy_storage_port",
+    "count": 2
+  }
+}

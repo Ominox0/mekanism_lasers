@@ -39,6 +39,9 @@ public class energyStorageMultiblockContainer implements IEnergyContainer {
         cells.put(pos, energyContainer);
 
         storageCap = MathUtils.addClamped(storageCap, energyContainer.getMaxEnergy());
+        // Each cell also contributes to how much energy can move through the ports per tick.
+        // Without this transferCap stays 0 and the structure can neither accept nor eject power.
+        transferCap = MathUtils.addClamped(transferCap, energyContainer.getMaxEnergy());
         cachedTotal = MathUtils.addClamped(cachedTotal, energyContainer.getEnergy());
     }
 

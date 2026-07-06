@@ -24,14 +24,27 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurable {
 
@@ -52,6 +65,17 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
     private BlockPos chestOut = null, powerIn = null, fluidIn = null, gasOut = null;
 
     private boolean doExplode = false;
+
+    // Implosion effect (replaces the old explosion): pull surrounding blocks toward the core,
+    // then blast them outward, destroying some in the process.
+    private static final int IMPLODE_SUCK_TICKS = 16;   // ticks spent pulling blocks inward
+    private static final int IMPLODE_MAX_BLOCKS = 200;  // cap on blocks turned into projectiles
+    private static final int IMPLODE_COOLDOWN = 200;    // ticks before it can trigger again
+    private static final float IMPLODE_DESTROY_CHANCE = 0.35F; // fraction destroyed on launch
+
+    private int implodeTimer = 0;
+    private int implodeCooldown = 0;
+    private final List<Integer> flyingBlockIds = new ArrayList<>();
 
     public void nextVe(){
         int id = typeV.getIndex();
@@ -249,27 +273,140 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
         return canGo;
     }
 
-    protected void tickExplode(){
-        if (Config.ODECM_CanExplode.get() && doExplode){
-            BlockPos pos = getBlockPos();
+    /**
+     * Kicks off the implosion: rips loose blocks around the core out of the world and turns them
+     * into projectiles that get sucked toward the core (see {@link #tickImplosion()}), which then
+     * launches them back outward.
+     */
+    private void startImplosion() {
+        Level world = getLevel();
+        if (!(world instanceof ServerLevel level)) {
+            return;
+        }
 
-            Level world = getLevel();
+        BlockPos core = getBlockPos();
+        int radius = Math.max(1, (int) (long) Config.ODECM_Explosion.get());
+        double radiusSq = (double) radius * radius;
+        RandomSource rand = level.getRandom();
 
-            if (world != null){
-                level.explode(null,
-                        null, //DamageTypeReg.ODECM.source(world),
-                        null,
-                        pos.getX(),
-                        pos.getY(),
-                        pos.getZ(),
-                        (float) (long) Config.ODECM_Explosion.get(),
-                        false,
-                        Level.ExplosionInteraction.BLOCK
-                );
+        Set<String> blacklist = new HashSet<>(Config.ODECM_ImplodeBlacklist.get());
+        Set<String> whitelist = new HashSet<>(Config.ODECM_ImplodeWhitelist.get());
+
+        List<BlockPos> candidates = new ArrayList<>();
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dy = -radius; dy <= radius; dy++) {
+                for (int dz = -radius; dz <= radius; dz++) {
+                    if (dx * dx + dy * dy + dz * dz > radiusSq) {
+                        continue;
+                    }
+                    BlockPos p = core.offset(dx, dy, dz);
+                    if (p.equals(core)) {
+                        continue;
+                    }
+                    BlockState st = level.getBlockState(p);
+                    // Skip air, fluids and unbreakable blocks (bedrock, ...).
+                    if (st.isAir() || !st.getFluidState().isEmpty() || st.getDestroySpeed(level, p) < 0) {
+                        continue;
+                    }
+                    String id = BuiltInRegistries.BLOCK.getKey(st.getBlock()).toString();
+                    // Blacklist always wins.
+                    if (blacklist.contains(id)) {
+                        continue;
+                    }
+                    // Block entities (machines, our own barrel, ...) are excluded unless the block
+                    // is explicitly whitelisted (e.g. structural glass).
+                    if (level.getBlockEntity(p) != null && !whitelist.contains(id)) {
+                        continue;
+                    }
+                    candidates.add(p);
+                }
             }
         }
-        // Reset so we don't re-explode every tick if the block somehow survives.
-        doExplode = false;
+
+        Collections.shuffle(candidates, new java.util.Random(rand.nextLong()));
+        int count = Math.min(candidates.size(), IMPLODE_MAX_BLOCKS);
+
+        flyingBlockIds.clear();
+        Vec3 center = Vec3.atCenterOf(core);
+        for (int i = 0; i < count; i++) {
+            BlockPos p = candidates.get(i);
+            BlockState st = level.getBlockState(p);
+            // FallingBlockEntity.fall removes the source block and spawns the flying entity.
+            FallingBlockEntity fb = FallingBlockEntity.fall(level, p, st);
+            fb.setHurtsEntities(2.0F, 20);
+            fb.time = 1; // don't let it self-remove on its first tick
+            Vec3 toCenter = center.subtract(fb.position());
+            if (toCenter.lengthSqr() > 1.0E-4) {
+                fb.setDeltaMovement(toCenter.normalize().scale(0.4));
+                fb.hasImpulse = true;
+            }
+            flyingBlockIds.add(fb.getId());
+        }
+
+        if (!flyingBlockIds.isEmpty()) {
+            level.playSound(null, core, SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS, 3.0F, 0.5F);
+            implodeTimer = IMPLODE_SUCK_TICKS;
+        }
+    }
+
+    /**
+     * Drives the implosion each tick: pulls the flying blocks toward the core, then on the final
+     * tick launches the survivors outward and destroys the rest.
+     */
+    private void tickImplosion() {
+        Level world = getLevel();
+        if (!(world instanceof ServerLevel level)) {
+            endImplosion();
+            return;
+        }
+
+        Vec3 center = Vec3.atCenterOf(getBlockPos());
+        RandomSource rand = level.getRandom();
+        implodeTimer--;
+        boolean launch = implodeTimer <= 0;
+
+        Iterator<Integer> it = flyingBlockIds.iterator();
+        while (it.hasNext()) {
+            Entity entity = level.getEntity(it.next());
+            if (!(entity instanceof FallingBlockEntity fb) || fb.isRemoved()) {
+                it.remove();
+                continue;
+            }
+
+            if (!launch) {
+                // Suck phase: keep steering the block toward the core.
+                Vec3 toCenter = center.subtract(fb.position());
+                double dist = toCenter.length();
+                if (dist > 0.1) {
+                    double speed = Math.min(0.9, 0.25 + dist * 0.08);
+                    fb.setDeltaMovement(toCenter.normalize().scale(speed));
+                    fb.hasImpulse = true;
+                }
+            } else if (rand.nextFloat() < IMPLODE_DESTROY_CHANCE) {
+                // Launch phase: some blocks are destroyed outright.
+                level.levelEvent(2001, fb.blockPosition(), Block.getId(fb.getBlockState()));
+                fb.discard();
+            } else {
+                // The rest are flung back out from the core.
+                Vec3 outward = fb.position().subtract(center);
+                if (outward.lengthSqr() < 1.0E-4) {
+                    outward = new Vec3(rand.nextDouble() - 0.5, rand.nextDouble(), rand.nextDouble() - 0.5);
+                }
+                Vec3 velocity = outward.normalize().scale(1.0 + rand.nextDouble()).add(0.0, 0.6, 0.0);
+                fb.setDeltaMovement(velocity);
+                fb.hasImpulse = true;
+            }
+        }
+
+        if (launch) {
+            endImplosion();
+        }
+    }
+
+    private void endImplosion() {
+        flyingBlockIds.clear();
+        implodeTimer = 0;
+        implodeCooldown = IMPLODE_COOLDOWN;
     }
 
     /**
@@ -299,7 +436,10 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
         boolean doFluid = tickFluid(ability, fluidCost, doPower);
         boolean doOutputGas = tickGas(ability, gasCost, doPower);
 
-        tickExplode();
+        if (Config.ODECM_CanExplode.get() && doExplode && implodeTimer <= 0 && implodeCooldown <= 0) {
+            startImplosion();
+        }
+        doExplode = false;
 
         if (doPower && doFluid && doOutputGas) {
 
@@ -351,13 +491,20 @@ public class ODECM_BlockEntity extends TileEntityMekanism implements IConfigurab
     protected boolean onUpdateServer() {
         int oldProgress = progress;
 
-        if (isStillBuilt() && hasItem()) {
+        if (implodeCooldown > 0) {
+            implodeCooldown--;
+        }
+
+        if (implodeTimer > 0) {
+            // An implosion is in progress; drive it and pause normal generation.
+            tickImplosion();
+        } else if (isStillBuilt() && hasItem()) {
             tickGenerated();
         } else {
             progress = 0;
         }
 
-        return oldProgress != progress;
+        return oldProgress != progress || implodeTimer > 0;
     }
 
     @Override

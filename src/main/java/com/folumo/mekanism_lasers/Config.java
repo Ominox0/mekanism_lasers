@@ -32,6 +32,9 @@ public class Config
 
     public static final ModConfigSpec.ConfigValue<List<? extends Integer>> ODECM_Generator;
 
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> ODECM_ImplodeBlacklist;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> ODECM_ImplodeWhitelist;
+
     public static final ModConfigSpec.IntValue oreGeneratorCooldown;
     public static final ModConfigSpec.LongValue oreGeneratorFabricationCost;
     public static final ModConfigSpec.IntValue oreGeneratorNumberOfOres;
@@ -60,8 +63,8 @@ public class Config
 
         ODECM_LiquidGasIO = BUILDER.comment("This determens how fast the ODECM consumes water, and outputs steam, using the formula (ODECM_TickCost * ODECM_Generator (version)) / X").defineInRange("ODECM_LiquidGasIO", 20, 0, Long.MAX_VALUE);
 
-        ODECM_CanExplode = BUILDER.comment("Can ODECM explode if the output tank is full?").define("ODECM_CanExplode", true);
-        ODECM_Explosion = BUILDER.comment("Once ODECM explodes what should be the explosion magnitude be").defineInRange("ODECM_Explosion", 80, 1, Long.MAX_VALUE);
+        ODECM_CanExplode = BUILDER.comment("Can the ODECM implode (suck in surrounding blocks and blast them back out) when it is starved of water/steam?").define("ODECM_CanExplode", true);
+        ODECM_Explosion = BUILDER.comment("Radius (in blocks) of the ODECM implosion").defineInRange("ODECM_Explosion", 12, 1, Long.MAX_VALUE);
 
         oreGeneratorCooldown = BUILDER.comment("[Depreciated] Cooldown of the ore generator (in seconds)").defineInRange("oreGeneratorCooldown", 4, 0, Integer.MAX_VALUE);
         oreGeneratorFabricationCost = BUILDER.comment("[Depreciated] Energy cost of fabricating ore/ores").defineInRange("oreGeneratorFabricationCost", 16_000_000L, 0, Long.MAX_VALUE);
@@ -81,6 +84,12 @@ public class Config
 
         ODECM_Generator = BUILDER.comment("List should have amount of elements >= the amount of ODECM generator versions, each number tells the generator by how much will it improve")
                 .defineList("ODECM_Generator", List.of(1, 2, 3, 6, 9, 25), () -> 0, o -> o instanceof Integer);
+
+        ODECM_ImplodeBlacklist = BUILDER.comment("Block IDs the ODECM implosion will NEVER pull in. Takes priority over the whitelist.")
+                .defineListAllowEmpty("ODECM_ImplodeBlacklist", List.of(), () -> "", o -> o instanceof String);
+
+        ODECM_ImplodeWhitelist = BUILDER.comment("Blocks with a block entity (tile entities) are excluded from the implosion by default; add block IDs here to allow those specific ones to be pulled in.")
+                .defineListAllowEmpty("ODECM_ImplodeWhitelist", List.of("mekanism:structural_glass"), () -> "", o -> o instanceof String);
 
         BUILDER.pop();
         SPEC = BUILDER.build();
